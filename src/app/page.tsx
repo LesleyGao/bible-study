@@ -640,94 +640,102 @@ export default function Home() {
               {verses.map((v) => {
                 const isHighlighted = highlightedVerses.has(v.verse);
                 const isSelected = isInSelection(v.verse);
+                const showPanelAfter =
+                  isSharedMode &&
+                  highlightEnd !== null &&
+                  v.verse === highlightEnd;
                 return (
-                  <span
-                    key={v.verse}
-                    className={
-                      isSelected
-                        ? "bg-gold/25 rounded px-0.5"
-                        : isHighlighted
-                        ? "bg-gold/10 rounded px-0.5"
-                        : ""
-                    }
-                  >
-                    <sup
-                      className="cursor-pointer hover:bg-gold/30 rounded px-0.5 transition-colors"
-                      onClick={() => handleVerseTap(v.verse)}
-                      title={isSharedMode ? "Tap to highlight" : ""}
+                  <span key={v.verse}>
+                    <span
+                      className={
+                        isSelected
+                          ? "bg-gold/25 rounded px-0.5"
+                          : isHighlighted
+                          ? "bg-gold/10 rounded px-0.5"
+                          : ""
+                      }
                     >
-                      {v.verse}
-                    </sup>
-                    {v.text}{" "}
+                      <sup
+                        className="cursor-pointer hover:bg-gold/30 rounded px-0.5 transition-colors"
+                        onClick={() => handleVerseTap(v.verse)}
+                        title={isSharedMode ? "Tap to highlight" : ""}
+                      >
+                        {v.verse}
+                      </sup>
+                      {v.text}{" "}
+                    </span>
+                    {showPanelAfter && (
+                      <span
+                        className="block my-3 p-3 bg-parchment rounded-lg border border-gold/20"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-ink">
+                            {highlightStart === highlightEnd
+                              ? `Verse ${highlightStart}`
+                              : `Verses ${highlightStart}–${highlightEnd}`}
+                          </span>
+                          <span className="text-xs text-warmgray">
+                            Tap another verse to extend
+                          </span>
+                        </span>
+                        {chapterHighlights
+                          .filter((h) => {
+                            const hEnd = h.verse_end ?? h.verse;
+                            return (
+                              h.verse <=
+                                (highlightEnd ?? highlightStart!) &&
+                              hEnd >= highlightStart!
+                            );
+                          })
+                          .map((h) => (
+                            <span
+                              key={h.id}
+                              className="block text-xs text-ink-light mb-2 bg-white/60 rounded p-2"
+                            >
+                              <span className="font-semibold text-gold-dark">
+                                {h.user_name}
+                              </span>
+                              {" · v"}
+                              {h.verse}
+                              {h.verse_end ? `–${h.verse_end}` : ""}
+                              {": "}
+                              {h.note || "(no note)"}
+                            </span>
+                          ))}
+                        <input
+                          type="text"
+                          value={highlightNote}
+                          onChange={(e) => setHighlightNote(e.target.value)}
+                          placeholder="Why do these verses stand out?"
+                          className="w-full p-2 text-sm rounded border border-parchment-dark bg-white focus:outline-none focus:border-gold"
+                          onKeyDown={(e) =>
+                            e.key === "Enter" && submitHighlight()
+                          }
+                        />
+                        <span className="flex gap-2 mt-2">
+                          <button
+                            onClick={submitHighlight}
+                            className="text-sm bg-gold hover:bg-gold-dark text-white font-medium py-1.5 px-4 rounded transition-colors"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={() => {
+                              setHighlightStart(null);
+                              setHighlightEnd(null);
+                              setHighlightNote("");
+                            }}
+                            className="text-sm text-warmgray hover:text-ink-light py-1.5 px-3"
+                          >
+                            Cancel
+                          </button>
+                        </span>
+                      </span>
+                    )}
                   </span>
                 );
               })}
-            </div>
-          )}
-
-          {/* Highlight panel */}
-          {isSharedMode && highlightStart !== null && (
-            <div className="mt-4 pt-4 border-t border-parchment-dark">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-ink">
-                  {highlightStart === highlightEnd
-                    ? `Verse ${highlightStart}`
-                    : `Verses ${highlightStart}–${highlightEnd}`}
-                </p>
-                <p className="text-xs text-warmgray">
-                  Tap another verse to extend selection
-                </p>
-              </div>
-              {/* Existing highlights overlapping this range */}
-              {chapterHighlights
-                .filter((h) => {
-                  const hEnd = h.verse_end ?? h.verse;
-                  return (
-                    h.verse <= (highlightEnd ?? highlightStart) &&
-                    hEnd >= highlightStart
-                  );
-                })
-                .map((h) => (
-                  <div
-                    key={h.id}
-                    className="text-xs text-ink-light mb-2 bg-parchment/50 rounded p-2"
-                  >
-                    <span className="font-semibold text-gold-dark">
-                      {h.user_name}
-                    </span>
-                    {" · v"}
-                    {h.verse}
-                    {h.verse_end ? `–${h.verse_end}` : ""}
-                    {": "}
-                    {h.note || "(no note)"}
-                  </div>
-                ))}
-              <input
-                type="text"
-                value={highlightNote}
-                onChange={(e) => setHighlightNote(e.target.value)}
-                placeholder="Why do these verses stand out?"
-                className="w-full p-2 text-sm rounded border border-parchment-dark bg-parchment/30 focus:outline-none focus:border-gold"
-                onKeyDown={(e) => e.key === "Enter" && submitHighlight()}
-              />
-              <div className="flex gap-2 mt-2">
-                <button
-                  onClick={submitHighlight}
-                  className="text-sm bg-gold hover:bg-gold-dark text-white font-medium py-1.5 px-4 rounded transition-colors"
-                >
-                  Save Highlight
-                </button>
-                <button
-                  onClick={() => {
-                    setHighlightStart(null);
-                    setHighlightEnd(null);
-                    setHighlightNote("");
-                  }}
-                  className="text-sm text-warmgray hover:text-ink-light py-1.5 px-3"
-                >
-                  Cancel
-                </button>
-              </div>
             </div>
           )}
         </div>
