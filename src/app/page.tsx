@@ -691,16 +691,37 @@ export default function Home() {
                           .map((h) => (
                             <span
                               key={h.id}
-                              className="block text-xs text-ink-light mb-2 bg-white/60 rounded p-2"
+                              className="flex items-start justify-between text-xs text-ink-light mb-2 bg-white/60 rounded p-2"
                             >
-                              <span className="font-semibold text-gold-dark">
-                                {h.user_name}
+                              <span>
+                                <span className="font-semibold text-gold-dark">
+                                  {h.user_name}
+                                </span>
+                                {" · v"}
+                                {h.verse}
+                                {h.verse_end ? `–${h.verse_end}` : ""}
+                                {": "}
+                                {h.note || "(no note)"}
                               </span>
-                              {" · v"}
-                              {h.verse}
-                              {h.verse_end ? `–${h.verse_end}` : ""}
-                              {": "}
-                              {h.note || "(no note)"}
+                              {h.user_name.toLowerCase() ===
+                                currentUser?.toLowerCase() && (
+                                <button
+                                  onClick={async (e) => {
+                                    e.stopPropagation();
+                                    await removeHighlight(h.id);
+                                    setChapterHighlights(
+                                      await loadChapterHighlights(
+                                        selected.book.name,
+                                        selected.chapter
+                                      )
+                                    );
+                                  }}
+                                  className="ml-2 text-warmgray hover:text-red-400 shrink-0"
+                                  title="Delete highlight"
+                                >
+                                  &times;
+                                </button>
+                              )}
                             </span>
                           ))}
                         <input
@@ -1449,9 +1470,26 @@ export default function Home() {
                               {h.book} {h.chapter}:{h.verse}
                               {h.verse_end ? `–${h.verse_end}` : ""}
                             </span>
-                            <span className="text-xs text-warmgray">
-                              {h.user_name}
-                            </span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs text-warmgray">
+                                {h.user_name}
+                              </span>
+                              {h.user_name.toLowerCase() ===
+                                currentUser?.toLowerCase() && (
+                                <button
+                                  onClick={async () => {
+                                    await removeHighlight(h.id);
+                                    setAllHighlights(
+                                      await loadAllHighlights()
+                                    );
+                                  }}
+                                  className="text-warmgray hover:text-red-400 text-sm"
+                                  title="Delete"
+                                >
+                                  &times;
+                                </button>
+                              )}
+                            </div>
                           </div>
                           <p className="text-ink font-serif text-sm leading-relaxed mb-1">
                             &ldquo;{h.verse_text}&rdquo;
