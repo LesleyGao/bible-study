@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #faf7f2;
+  color: #2d2418;
+}
+
+/* Bible text styling */
+.bible-text {
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.bible-text sup {
+  color: #c9922e;
+  font-weight: 600;
+  font-size: 0.7em;
+  margin-right: 2px;
+}
+
+/* Study content from Claude */
+.study-content h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #a07424;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.study-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5c4a38;
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.study-content p {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.study-content em {
+  color: #a07424;
+  font-style: italic;
+}
+
+.study-content strong {
+  color: #2d2418;
+  font-weight: 600;
+}
+
+.study-content blockquote {
+  border-left: 3px solid #c9922e;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #5c4a38;
+  font-style: italic;
+}
+
+.study-content ul,
+.study-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.study-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+
+/* Loading animation */
+@keyframes pulse-warm {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.loading-pulse {
+  animation: pulse-warm 1.5s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0ebe3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9b89a;
+  border-radius: 3px;
+}
