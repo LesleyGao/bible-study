@@ -24,6 +24,7 @@ import {
   loadChapterHighlights,
   loadAllHighlights,
   saveHighlight,
+  removeHighlight,
   getGratitude,
   saveGratitude,
   loadAllGratitude,
