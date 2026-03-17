@@ -306,7 +306,8 @@ export default function Home() {
       setGratitudeSubmitted(!!(userKey && grat[userKey]));
       if (userKey && grat[userKey]) setGratitudeInput(grat[userKey]!);
       setChapterHighlights(highlights);
-      setSelectedVerse(null);
+      setHighlightStart(null);
+      setHighlightEnd(null);
       setHighlightNote("");
     },
     [userKey]
