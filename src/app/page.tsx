@@ -90,8 +90,12 @@ export default function Home() {
 
   // ─── Highlights ───
   const [chapterHighlights, setChapterHighlights] = useState<Highlight[]>([]);
-  const [selectedVerse, setSelectedVerse] = useState<number | null>(null);
+  const [highlightStart, setHighlightStart] = useState<number | null>(null);
+  const [highlightEnd, setHighlightEnd] = useState<number | null>(null);
   const [highlightNote, setHighlightNote] = useState("");
+  const [notesFilter, setNotesFilter] = useState<"all" | "mine" | "partner">(
+    "all"
+  );
   const [allHighlights, setAllHighlights] = useState<Highlight[]>([]);
 
   // ─── Prayer Board ───
@@ -321,7 +325,8 @@ export default function Home() {
     setGratitudeSubmitted(false);
     setGratitude({});
     setChapterHighlights([]);
-    setSelectedVerse(null);
+    setHighlightStart(null);
+    setHighlightEnd(null);
     fetchBibleText(book, chapter);
     window.scrollTo(0, 0);
   };
@@ -410,23 +415,45 @@ export default function Home() {
     );
   };
 
-  // ─── Highlight verse ───
+  // ─── Highlight verse(s) ───
+  const handleVerseTap = (verseNum: number) => {
+    if (!isSharedMode) return;
+    if (highlightStart === null) {
+      setHighlightStart(verseNum);
+      setHighlightEnd(verseNum);
+      setHighlightNote("");
+    } else if (highlightStart === verseNum && highlightEnd === verseNum) {
+      setHighlightStart(null);
+      setHighlightEnd(null);
+      setHighlightNote("");
+    } else {
+      setHighlightStart(Math.min(highlightStart, verseNum));
+      setHighlightEnd(Math.max(highlightEnd ?? highlightStart, verseNum));
+    }
+  };
+
   const submitHighlight = async () => {
-    if (!selected || !currentUser || selectedVerse === null) return;
-    const verseObj = verses.find((v) => v.verse === selectedVerse);
-    if (!verseObj) return;
+    if (!selected || !currentUser || highlightStart === null) return;
+    const end = highlightEnd ?? highlightStart;
+    const rangeVerses = verses.filter(
+      (v) => v.verse >= highlightStart && v.verse <= end
+    );
+    const verseText = rangeVerses.map((v) => v.text).join(" ");
+    if (!verseText) return;
     await saveHighlight(
       currentUser,
       selected.book.name,
       selected.chapter,
-      selectedVerse,
-      verseObj.text,
+      highlightStart,
+      end > highlightStart ? end : null,
+      verseText,
       highlightNote.trim()
     );
     setChapterHighlights(
       await loadChapterHighlights(selected.book.name, selected.chapter)
     );
-    setSelectedVerse(null);
+    setHighlightStart(null);
+    setHighlightEnd(null);
     setHighlightNote("");
   };
 
@@ -555,9 +582,16 @@ export default function Home() {
     const partnerRead = isChapterReadByPartner(book.name, chapter);
     const bothReflected = !!reflections.lesley && !!reflections.kelvin;
     const bothGratitude = !!gratitude.lesley && !!gratitude.kelvin;
-    const highlightedVerses = new Set(
-      chapterHighlights.map((h) => h.verse)
-    );
+    const highlightedVerses = new Set<number>();
+    chapterHighlights.forEach((h) => {
+      const end = h.verse_end ?? h.verse;
+      for (let v = h.verse; v <= end; v++) highlightedVerses.add(v);
+    });
+    const isInSelection = (v: number) =>
+      highlightStart !== null &&
+      highlightEnd !== null &&
+      v >= highlightStart &&
+      v <= highlightEnd;
 
     return (
       <div className="max-w-2xl mx-auto px-4 py-6">
@@ -604,25 +638,21 @@ export default function Home() {
             <div className="bible-text">
               {verses.map((v) => {
                 const isHighlighted = highlightedVerses.has(v.verse);
+                const isSelected = isInSelection(v.verse);
                 return (
                   <span
                     key={v.verse}
                     className={
-                      isHighlighted
+                      isSelected
+                        ? "bg-gold/25 rounded px-0.5"
+                        : isHighlighted
                         ? "bg-gold/10 rounded px-0.5"
                         : ""
                     }
                   >
                     <sup
-                      className="cursor-pointer hover:bg-gold/20 rounded px-0.5 transition-colors"
-                      onClick={() => {
-                        if (isSharedMode) {
-                          setSelectedVerse(
-                            selectedVerse === v.verse ? null : v.verse
-                          );
-                          setHighlightNote("");
-                        }
-                      }}
+                      className="cursor-pointer hover:bg-gold/30 rounded px-0.5 transition-colors"
+                      onClick={() => handleVerseTap(v.verse)}
                       title={isSharedMode ? "Tap to highlight" : ""}
                     >
                       {v.verse}
@@ -635,14 +665,27 @@ export default function Home() {
           )}
 
           {/* Highlight panel */}
-          {isSharedMode && selectedVerse !== null && (
+          {isSharedMode && highlightStart !== null && (
             <div className="mt-4 pt-4 border-t border-parchment-dark">
-              <p className="text-sm font-medium text-ink mb-2">
-                Highlight verse {selectedVerse}
-              </p>
-              {/* Existing highlights on this verse */}
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-ink">
+                  {highlightStart === highlightEnd
+                    ? `Verse ${highlightStart}`
+                    : `Verses ${highlightStart}–${highlightEnd}`}
+                </p>
+                <p className="text-xs text-warmgray">
+                  Tap another verse to extend selection
+                </p>
+              </div>
+              {/* Existing highlights overlapping this range */}
               {chapterHighlights
-                .filter((h) => h.verse === selectedVerse)
+                .filter((h) => {
+                  const hEnd = h.verse_end ?? h.verse;
+                  return (
+                    h.verse <= (highlightEnd ?? highlightStart) &&
+                    hEnd >= highlightStart
+                  );
+                })
                 .map((h) => (
                   <div
                     key={h.id}
@@ -651,23 +694,39 @@ export default function Home() {
                     <span className="font-semibold text-gold-dark">
                       {h.user_name}
                     </span>
-                    : {h.note || "(no note)"}
+                    {" · v"}
+                    {h.verse}
+                    {h.verse_end ? `–${h.verse_end}` : ""}
+                    {": "}
+                    {h.note || "(no note)"}
                   </div>
                 ))}
               <input
                 type="text"
                 value={highlightNote}
                 onChange={(e) => setHighlightNote(e.target.value)}
-                placeholder="Why does this verse stand out?"
+                placeholder="Why do these verses stand out?"
                 className="w-full p-2 text-sm rounded border border-parchment-dark bg-parchment/30 focus:outline-none focus:border-gold"
                 onKeyDown={(e) => e.key === "Enter" && submitHighlight()}
               />
-              <button
-                onClick={submitHighlight}
-                className="mt-2 text-sm bg-gold hover:bg-gold-dark text-white font-medium py-1.5 px-4 rounded transition-colors"
-              >
-                Save Highlight
-              </button>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={submitHighlight}
+                  className="text-sm bg-gold hover:bg-gold-dark text-white font-medium py-1.5 px-4 rounded transition-colors"
+                >
+                  Save Highlight
+                </button>
+                <button
+                  onClick={() => {
+                    setHighlightStart(null);
+                    setHighlightEnd(null);
+                    setHighlightNote("");
+                  }}
+                  className="text-sm text-warmgray hover:text-ink-light py-1.5 px-3"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -1249,38 +1308,153 @@ export default function Home() {
                   </p>
                   <p className="text-warmgray text-sm">
                     Tap any verse number while reading to highlight it with a
-                    note.
+                    note. Tap a second verse to select a range.
                   </p>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  <p className="text-warmgray text-sm mb-2">
-                    {allHighlights.length} verse
-                    {allHighlights.length !== 1 ? "s" : ""} highlighted
-                  </p>
-                  {allHighlights.map((h) => (
-                    <div
-                      key={h.id}
-                      className="bg-white rounded-xl p-4 shadow-sm border border-parchment-dark"
-                    >
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="text-xs font-semibold text-gold-dark">
-                          {h.book} {h.chapter}:{h.verse}
-                        </span>
-                        <span className="text-xs text-warmgray">
-                          {h.user_name}
-                        </span>
-                      </div>
-                      <p className="text-ink font-serif text-sm leading-relaxed mb-1">
-                        &ldquo;{h.verse_text}&rdquo;
-                      </p>
-                      {h.note && (
-                        <p className="text-ink-light text-xs italic">
-                          {h.note}
-                        </p>
-                      )}
+                <div>
+                  {/* Filter + Export */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex gap-2">
+                      {(
+                        [
+                          ["all", "All"],
+                          ["mine", "Mine"],
+                          ["partner", partnerName],
+                        ] as const
+                      ).map(([key, label]) => (
+                        <button
+                          key={key}
+                          onClick={() => setNotesFilter(key)}
+                          className={`text-xs font-medium px-3 py-1 rounded-full ${
+                            notesFilter === key
+                              ? "bg-gold/15 text-gold-dark"
+                              : "text-warmgray"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
                     </div>
-                  ))}
+                    <button
+                      onClick={() => {
+                        const filtered = allHighlights.filter((h) => {
+                          if (notesFilter === "mine")
+                            return (
+                              h.user_name.toLowerCase() ===
+                              currentUser?.toLowerCase()
+                            );
+                          if (notesFilter === "partner")
+                            return (
+                              h.user_name.toLowerCase() !==
+                              currentUser?.toLowerCase()
+                            );
+                          return true;
+                        });
+                        const owner =
+                          notesFilter === "mine"
+                            ? currentUser
+                            : notesFilter === "partner"
+                            ? partnerName
+                            : "Lesley & Kelvin";
+                        const grouped: Record<string, typeof filtered> = {};
+                        for (const h of filtered) {
+                          const key = `${h.book}`;
+                          if (!grouped[key]) grouped[key] = [];
+                          grouped[key].push(h);
+                        }
+                        let md = `# Bible Study Notes — ${owner}\n\n`;
+                        md += `*Exported ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}*\n\n`;
+                        for (const [bookName, highlights] of Object.entries(
+                          grouped
+                        )) {
+                          md += `## ${bookName}\n\n`;
+                          for (const h of highlights.sort(
+                            (a, b) =>
+                              a.chapter - b.chapter || a.verse - b.verse
+                          )) {
+                            const ref = h.verse_end
+                              ? `${h.chapter}:${h.verse}–${h.verse_end}`
+                              : `${h.chapter}:${h.verse}`;
+                            md += `### ${bookName} ${ref}\n\n`;
+                            md += `> ${h.verse_text}\n\n`;
+                            if (h.note)
+                              md += `**${h.user_name}:** ${h.note}\n\n`;
+                            md += `---\n\n`;
+                          }
+                        }
+                        const blob = new Blob([md], { type: "text/markdown" });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = `bible-notes-${(notesFilter === "mine" ? currentUser : notesFilter === "partner" ? partnerName : "all")?.toLowerCase()}.md`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                      }}
+                      className="text-xs font-medium text-gold-dark hover:text-gold px-3 py-1 rounded-full bg-gold/10"
+                    >
+                      Export .md
+                    </button>
+                  </div>
+
+                  <p className="text-warmgray text-sm mb-3">
+                    {allHighlights.filter((h) => {
+                      if (notesFilter === "mine")
+                        return (
+                          h.user_name.toLowerCase() ===
+                          currentUser?.toLowerCase()
+                        );
+                      if (notesFilter === "partner")
+                        return (
+                          h.user_name.toLowerCase() !==
+                          currentUser?.toLowerCase()
+                        );
+                      return true;
+                    }).length}{" "}
+                    highlight
+                    {allHighlights.length !== 1 ? "s" : ""}
+                  </p>
+
+                  <div className="space-y-3">
+                    {allHighlights
+                      .filter((h) => {
+                        if (notesFilter === "mine")
+                          return (
+                            h.user_name.toLowerCase() ===
+                            currentUser?.toLowerCase()
+                          );
+                        if (notesFilter === "partner")
+                          return (
+                            h.user_name.toLowerCase() !==
+                            currentUser?.toLowerCase()
+                          );
+                        return true;
+                      })
+                      .map((h) => (
+                        <div
+                          key={h.id}
+                          className="bg-white rounded-xl p-4 shadow-sm border border-parchment-dark"
+                        >
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="text-xs font-semibold text-gold-dark">
+                              {h.book} {h.chapter}:{h.verse}
+                              {h.verse_end ? `–${h.verse_end}` : ""}
+                            </span>
+                            <span className="text-xs text-warmgray">
+                              {h.user_name}
+                            </span>
+                          </div>
+                          <p className="text-ink font-serif text-sm leading-relaxed mb-1">
+                            &ldquo;{h.verse_text}&rdquo;
+                          </p>
+                          {h.note && (
+                            <p className="text-ink-light text-xs italic">
+                              {h.note}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                  </div>
                 </div>
               )}
             </div>

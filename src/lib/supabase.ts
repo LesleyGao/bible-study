@@ -181,6 +181,7 @@ export interface Highlight {
   book: string;
   chapter: number;
   verse: number;
+  verse_end?: number;
   verse_text: string;
   note?: string;
   created_at: string;
@@ -214,6 +215,7 @@ export async function saveHighlight(
   book: string,
   chapter: number,
   verse: number,
+  verseEnd: number | null,
   verseText: string,
   note: string
 ): Promise<void> {
@@ -224,6 +226,7 @@ export async function saveHighlight(
       book,
       chapter,
       verse,
+      verse_end: verseEnd && verseEnd > verse ? verseEnd : null,
       verse_text: verseText,
       note,
     },
