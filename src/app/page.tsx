@@ -34,7 +34,7 @@ import {
   type GratitudeEntry,
 } from "@/lib/supabase";
 
-type View = "plan" | "chapter" | "life" | "together";
+type View = "plan" | "chapter" | "together";
 
 interface ChapterSelection {
   book: Book;
@@ -109,9 +109,6 @@ export default function Home() {
   const [isLoadingRecap, setIsLoadingRecap] = useState(false);
 
   // ─── Life challenge ───
-  const [lifeInput, setLifeInput] = useState("");
-  const [lifeResponse, setLifeResponse] = useState("");
-  const [isLoadingLife, setIsLoadingLife] = useState(false);
 
   // ─── Gratitude history ───
   const [allGratitude, setAllGratitude] = useState<GratitudeEntry[]>([]);
@@ -214,18 +211,6 @@ export default function Home() {
     );
   };
 
-  const getBooksRead = (): string[] =>
-    READING_PLAN.filter((b) => getCompletedChapters(b.name) > 0).map(
-      (b) => b.name
-    );
-
-  const getCurrentBook = (): string => {
-    for (const book of READING_PLAN) {
-      if (getCompletedChapters(book.name) < book.chapters) return book.name;
-    }
-    return READING_PLAN[READING_PLAN.length - 1].name;
-  };
-
   // ─── Bible text ───
   const fetchBibleText = useCallback(
     async (book: Book, chapter: number) => {
@@ -257,7 +242,7 @@ export default function Home() {
 
   // ─── Reflection prompt ───
   const loadReflectionPrompt = useCallback(
-    async (book: string, chapter: number, bibleText: string) => {
+    async (book: string, chapter: number, _bibleText: string) => {
       if (!isSharedMode) return;
       setIsLoadingPrompt(true);
       setReflectionPrompt("");
@@ -266,21 +251,9 @@ export default function Home() {
       setReflections({});
 
       try {
-        const stored = await getStoredPrompt(book, chapter);
-        if (stored) {
-          setReflectionPrompt(stored);
-        } else {
-          const res = await fetch("/api/reflection-prompt", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ book, chapter, text: bibleText }),
-          });
-          const data = await res.json();
-          if (data.prompt) {
-            setReflectionPrompt(data.prompt);
-            await storePrompt(book, chapter, data.prompt);
-          }
-        }
+        setReflectionPrompt(
+          `Share your insights and reflections after reading ${book} ${chapter}.`
+        );
 
         const existing = await getReflections(book, chapter);
         setReflections(existing);
@@ -356,6 +329,9 @@ export default function Home() {
           book: selected.book.name,
           chapter: selected.chapter,
           text: fullText || `${selected.book.name} chapter ${selected.chapter}`,
+          era: selected.book.era,
+          date: selected.book.date,
+          note: selected.book.note,
         }),
       });
       const reader = res.body!.getReader();
@@ -504,36 +480,6 @@ export default function Home() {
       setWeeklyRecap("Couldn't generate the recap. Please try again.");
     }
     setIsLoadingRecap(false);
-  };
-
-  // ─── Life challenge ───
-  const submitLifeChallenge = async () => {
-    if (!lifeInput.trim()) return;
-    setIsLoadingLife(true);
-    setLifeResponse("");
-    try {
-      const res = await fetch("/api/life", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          situation: lifeInput,
-          currentBook: getCurrentBook(),
-          booksRead: getBooksRead(),
-        }),
-      });
-      const reader = res.body!.getReader();
-      const decoder = new TextDecoder();
-      let content = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        content += decoder.decode(value);
-        setLifeResponse(content);
-      }
-    } catch {
-      setLifeResponse("Something went wrong. Please try again.");
-    }
-    setIsLoadingLife(false);
   };
 
   // ─── User selection ───
@@ -879,7 +825,7 @@ export default function Home() {
         {isSharedMode && isLoadingPrompt && (
           <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gold/20 mb-6">
             <p className="text-warmgray loading-pulse text-center py-4">
-              Preparing your reflection question...
+              Loading reflections...
             </p>
           </div>
         )}
@@ -891,7 +837,7 @@ export default function Home() {
               Gratitude
             </h3>
             <p className="text-ink-light text-sm mb-4">
-              What&apos;s one thing about {partnerName} you&apos;re grateful
+              Pause for a moment. What&apos;s one thing you&apos;re grateful
               for today?
             </p>
 
@@ -901,7 +847,7 @@ export default function Home() {
                   type="text"
                   value={gratitudeInput}
                   onChange={(e) => setGratitudeInput(e.target.value)}
-                  placeholder={`Something about ${partnerName}...`}
+                  placeholder="Today I'm grateful for..."
                   className="w-full p-3 rounded-lg border border-parchment-dark bg-parchment/30 text-ink placeholder:text-warmgray/50 focus:outline-none focus:border-rose-300"
                   onKeyDown={(e) => e.key === "Enter" && submitGratitude()}
                 />
@@ -1006,7 +952,6 @@ export default function Home() {
           [
             ["plan", "Reading Plan"],
             ["together", "Together"],
-            ["life", "Help Me With..."],
           ] as const
         ).map(([key, label]) => (
           <button
@@ -1517,8 +1462,8 @@ export default function Home() {
                     No gratitude entries yet.
                   </p>
                   <p className="text-warmgray text-sm">
-                    After reading a chapter, you&apos;ll each share one thing
-                    you&apos;re grateful for about each other.
+                    After reading a chapter, pause and share one thing
+                    you&apos;re grateful for today.
                   </p>
                 </div>
               ) : (
@@ -1592,46 +1537,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* ─── Life Challenge ─── */}
-      {view === "life" && (
-        <div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-parchment-dark">
-            <h2 className="font-semibold text-ink mb-2">
-              What are you going through?
-            </h2>
-            <p className="text-warmgray text-sm mb-4">
-              Describe what you&apos;re facing — anxiety, a decision, conflict,
-              grief, doubt, anything. You&apos;ll get specific passages that
-              speak to your situation.
-            </p>
-            <textarea
-              value={lifeInput}
-              onChange={(e) => setLifeInput(e.target.value)}
-              placeholder="I'm struggling with..."
-              className="w-full h-32 p-4 rounded-lg border border-parchment-dark bg-parchment/30 text-ink placeholder:text-warmgray/60 focus:outline-none focus:border-gold resize-none"
-            />
-            <button
-              onClick={submitLifeChallenge}
-              disabled={isLoadingLife || !lifeInput.trim()}
-              className="mt-3 w-full bg-gold hover:bg-gold-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
-            >
-              {isLoadingLife ? (
-                <span className="loading-pulse">Finding passages...</span>
-              ) : (
-                "Find Passages"
-              )}
-            </button>
-          </div>
-
-          {lifeResponse && (
-            <div className="mt-4 bg-white rounded-xl p-6 shadow-sm border border-parchment-dark">
-              <div className="study-content prose prose-warm max-w-none">
-                <ReactMarkdown>{lifeResponse}</ReactMarkdown>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
