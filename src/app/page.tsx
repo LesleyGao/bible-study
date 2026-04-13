@@ -28,6 +28,8 @@ import {
   getGratitude,
   saveGratitude,
   loadAllGratitude,
+  getStudyContent,
+  saveStudyContent,
   getWeeklyData,
   type Prayer,
   type Highlight,
@@ -318,8 +320,20 @@ export default function Home() {
   // ─── Go Deeper ───
   const goDeeper = async () => {
     if (!selected) return;
+    const isRegenerate = !!studyContent; // "Go Deeper Again" = regenerate fresh
     setIsLoadingStudy(true);
     setStudyContent("");
+
+    // Check cache first (only on first click, not "Go Deeper Again")
+    if (!isRegenerate) {
+      const cached = await getStudyContent(selected.book.name, selected.chapter);
+      if (cached) {
+        setStudyContent(cached);
+        setIsLoadingStudy(false);
+        return;
+      }
+    }
+
     const fullText = verses.map((v) => `${v.verse} ${v.text}`).join("\n");
     try {
       const res = await fetch("/api/study", {
@@ -334,12 +348,12 @@ export default function Home() {
           note: selected.book.note,
         }),
       });
-      if (!res.ok) {
+      if (!res.ok || !res.body) {
         setStudyContent("Something went wrong — the study API returned an error. Please try again in a moment.");
         setIsLoadingStudy(false);
         return;
       }
-      const reader = res.body!.getReader();
+      const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let content = "";
       while (true) {
@@ -347,6 +361,10 @@ export default function Home() {
         if (done) break;
         content += decoder.decode(value);
         setStudyContent(content);
+      }
+      // Save to cache for next time
+      if (content && content.length > 100) {
+        saveStudyContent(selected.book.name, selected.chapter, content);
       }
     } catch {
       setStudyContent("Something went wrong. Please try again.");
@@ -472,7 +490,12 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ weeklyData }),
       });
-      const reader = res.body!.getReader();
+      if (!res.ok || !res.body) {
+        setWeeklyRecap("Couldn't generate the recap. Please try again.");
+        setIsLoadingRecap(false);
+        return;
+      }
+      const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let content = "";
       while (true) {

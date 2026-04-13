@@ -20,7 +20,15 @@ GUIDELINES:
 - Keep the total response to about 500-700 words.`;
 
 export async function POST(req: Request) {
-  const { situation, currentBook, booksRead } = await req.json();
+  let situation: string, currentBook: string, booksRead: string[];
+  try {
+    ({ situation, currentBook, booksRead } = await req.json());
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "Invalid request body" }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
 
   const userMessage = `The reader is currently at **${currentBook}** in their chronological reading plan.
 

@@ -24,7 +24,15 @@ Based on the themes in their readings and reflections, give them ONE question to
 Keep the tone warm, direct, and personal — like a wise friend summarizing the week. 400-500 words max. No generic filler.`;
 
 export async function POST(req: Request) {
-  const { weeklyData } = await req.json();
+  let weeklyData;
+  try {
+    ({ weeklyData } = await req.json());
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "Invalid request body" }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
 
   const userMessage = `Here is the couple's Bible study data from this past week:
 

@@ -14,7 +14,8 @@ export async function loadAllProgress(): Promise<
   Record<string, { lesley: number[]; kelvin: number[] }>
 > {
   if (!supabase) return {};
-  const { data } = await supabase.from("bible_progress").select("*");
+  const { data, error } = await supabase.from("bible_progress").select("*");
+  if (error) console.error("loadAllProgress error:", error.message);
   if (!data) return {};
 
   const progress: Record<string, { lesley: number[]; kelvin: number[] }> = {};
@@ -34,12 +35,13 @@ export async function markChapterRead(
   chapter: number
 ) {
   if (!supabase) return;
-  await supabase
+  const { error } = await supabase
     .from("bible_progress")
     .upsert(
       { user_name: userName, book, chapter },
       { onConflict: "user_name,book,chapter" }
     );
+  if (error) console.error("markChapterRead error:", error.message);
 }
 
 export async function unmarkChapterRead(
@@ -48,12 +50,13 @@ export async function unmarkChapterRead(
   chapter: number
 ) {
   if (!supabase) return;
-  await supabase
+  const { error } = await supabase
     .from("bible_progress")
     .delete()
     .eq("user_name", userName)
     .eq("book", book)
     .eq("chapter", chapter);
+  if (error) console.error("unmarkChapterRead error:", error.message);
 }
 
 // ─── Reflection Prompts ───
@@ -63,12 +66,13 @@ export async function getStoredPrompt(
   chapter: number
 ): Promise<string | null> {
   if (!supabase) return null;
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("bible_reflection_prompts")
     .select("prompt")
     .eq("book", book)
     .eq("chapter", chapter)
     .single();
+  if (error && error.code !== "PGRST116") console.error("getStoredPrompt error:", error.message);
   return data?.prompt || null;
 }
 
@@ -78,9 +82,10 @@ export async function storePrompt(
   prompt: string
 ) {
   if (!supabase) return;
-  await supabase
+  const { error } = await supabase
     .from("bible_reflection_prompts")
     .upsert({ book, chapter, prompt }, { onConflict: "book,chapter" });
+  if (error) console.error("storePrompt error:", error.message);
 }
 
 // ─── Reflections ───
@@ -90,11 +95,12 @@ export async function getReflections(
   chapter: number
 ): Promise<{ lesley?: string; kelvin?: string }> {
   if (!supabase) return {};
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("bible_reflections")
     .select("user_name, content")
     .eq("book", book)
     .eq("chapter", chapter);
+  if (error) console.error("getReflections error:", error.message);
 
   const result: { lesley?: string; kelvin?: string } = {};
   if (data) {
@@ -113,10 +119,11 @@ export async function saveReflection(
   content: string
 ) {
   if (!supabase) return;
-  await supabase.from("bible_reflections").upsert(
+  const { error } = await supabase.from("bible_reflections").upsert(
     { user_name: userName, book, chapter, content },
     { onConflict: "user_name,book,chapter" }
   );
+  if (error) console.error("saveReflection error:", error.message);
 }
 
 // ─── Prayer Board ───
@@ -145,7 +152,8 @@ export async function addPrayer(
   content: string
 ): Promise<void> {
   if (!supabase) return;
-  await supabase.from("bible_prayers").insert({ user_name: userName, content });
+  const { error } = await supabase.from("bible_prayers").insert({ user_name: userName, content });
+  if (error) console.error("addPrayer error:", error.message);
 }
 
 export async function togglePrayingFor(
@@ -153,10 +161,11 @@ export async function togglePrayingFor(
   praying: boolean
 ): Promise<void> {
   if (!supabase) return;
-  await supabase
+  const { error } = await supabase
     .from("bible_prayers")
     .update({ partner_praying: praying })
     .eq("id", prayerId);
+  if (error) console.error("togglePrayingFor error:", error.message);
 }
 
 export async function markPrayerAnswered(
@@ -164,13 +173,14 @@ export async function markPrayerAnswered(
   answered: boolean
 ): Promise<void> {
   if (!supabase) return;
-  await supabase
+  const { error } = await supabase
     .from("bible_prayers")
     .update({
       is_answered: answered,
       answered_at: answered ? new Date().toISOString() : null,
     })
     .eq("id", prayerId);
+  if (error) console.error("markPrayerAnswered error:", error.message);
 }
 
 // ─── Highlights ───
@@ -220,7 +230,7 @@ export async function saveHighlight(
   note: string
 ): Promise<void> {
   if (!supabase) return;
-  await supabase.from("bible_highlights").upsert(
+  const { error } = await supabase.from("bible_highlights").upsert(
     {
       user_name: userName,
       book,
@@ -232,11 +242,13 @@ export async function saveHighlight(
     },
     { onConflict: "user_name,book,chapter,verse" }
   );
+  if (error) console.error("saveHighlight error:", error.message);
 }
 
 export async function removeHighlight(highlightId: string): Promise<void> {
   if (!supabase) return;
-  await supabase.from("bible_highlights").delete().eq("id", highlightId);
+  const { error } = await supabase.from("bible_highlights").delete().eq("id", highlightId);
+  if (error) console.error("removeHighlight error:", error.message);
 }
 
 // ─── Gratitude ───
@@ -246,11 +258,12 @@ export async function getGratitude(
   chapter: number
 ): Promise<{ lesley?: string; kelvin?: string }> {
   if (!supabase) return {};
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("bible_gratitude")
     .select("user_name, content")
     .eq("book", book)
     .eq("chapter", chapter);
+  if (error) console.error("getGratitude error:", error.message);
 
   const result: { lesley?: string; kelvin?: string } = {};
   if (data) {
@@ -269,10 +282,11 @@ export async function saveGratitude(
   content: string
 ): Promise<void> {
   if (!supabase) return;
-  await supabase.from("bible_gratitude").upsert(
+  const { error } = await supabase.from("bible_gratitude").upsert(
     { user_name: userName, book, chapter, content },
     { onConflict: "user_name,book,chapter" }
   );
+  if (error) console.error("saveGratitude error:", error.message);
 }
 
 export interface GratitudeEntry {
@@ -291,6 +305,36 @@ export async function loadAllGratitude(): Promise<GratitudeEntry[]> {
     .select("*")
     .order("created_at", { ascending: false });
   return (data as GratitudeEntry[]) || [];
+}
+
+// ─── Study Content Cache ───
+
+export async function getStudyContent(
+  book: string,
+  chapter: number
+): Promise<string | null> {
+  if (!supabase) return null;
+  const { data, error } = await supabase
+    .from("bible_study_content")
+    .select("content")
+    .eq("book", book)
+    .eq("chapter", chapter)
+    .single();
+  if (error && error.code !== "PGRST116") console.error("getStudyContent error:", error.message);
+  return data?.content || null;
+}
+
+export async function saveStudyContent(
+  book: string,
+  chapter: number,
+  content: string
+): Promise<void> {
+  if (!supabase) return;
+  const { error } = await supabase.from("bible_study_content").upsert(
+    { book, chapter, content },
+    { onConflict: "book,chapter" }
+  );
+  if (error) console.error("saveStudyContent error:", error.message);
 }
 
 // ─── Weekly Data (for recap) ───

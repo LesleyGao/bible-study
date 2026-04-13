@@ -32,22 +32,30 @@ Examples of great reflection questions (notice the range):
 Return ONLY the question. No preamble, no explanation. 2-3 sentences max.`;
 
 export async function POST(req: Request) {
-  const { book, chapter, text } = await req.json();
+  try {
+    const { book, chapter, text } = await req.json();
 
-  const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 300,
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: "user",
-        content: `Generate a couple reflection question for **${book} ${chapter}**.\n\nKey passage content:\n${text?.slice(0, 2000) || `${book} chapter ${chapter}`}`,
-      },
-    ],
-  });
+    const response = await anthropic.messages.create({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 300,
+      system: SYSTEM_PROMPT,
+      messages: [
+        {
+          role: "user",
+          content: `Generate a couple reflection question for **${book} ${chapter}**.\n\nKey passage content:\n${text?.slice(0, 2000) || `${book} chapter ${chapter}`}`,
+        },
+      ],
+    });
 
-  const prompt =
-    response.content[0].type === "text" ? response.content[0].text : "";
+    const prompt =
+      response.content[0].type === "text" ? response.content[0].text : "";
 
-  return Response.json({ prompt });
+    return Response.json({ prompt });
+  } catch (error) {
+    console.error("Reflection prompt error:", error);
+    return Response.json(
+      { error: "Failed to generate reflection prompt" },
+      { status: 500 }
+    );
+  }
 }
