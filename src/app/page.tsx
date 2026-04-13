@@ -334,6 +334,11 @@ export default function Home() {
           note: selected.book.note,
         }),
       });
+      if (!res.ok) {
+        setStudyContent("Something went wrong — the study API returned an error. Please try again in a moment.");
+        setIsLoadingStudy(false);
+        return;
+      }
       const reader = res.body!.getReader();
       const decoder = new TextDecoder();
       let content = "";
@@ -747,7 +752,7 @@ export default function Home() {
         {studyContent && (
           <div className="bg-white rounded-xl p-6 shadow-sm border border-parchment-dark mb-6">
             <div className="study-content prose prose-warm max-w-none">
-              <ReactMarkdown>{studyContent}</ReactMarkdown>
+              <ReactMarkdown skipHtml>{studyContent}</ReactMarkdown>
             </div>
           </div>
         )}
@@ -1528,7 +1533,7 @@ export default function Home() {
               {weeklyRecap && (
                 <div className="bg-white rounded-xl p-6 shadow-sm border border-parchment-dark">
                   <div className="study-content prose prose-warm max-w-none">
-                    <ReactMarkdown>{weeklyRecap}</ReactMarkdown>
+                    <ReactMarkdown skipHtml>{weeklyRecap}</ReactMarkdown>
                   </div>
                 </div>
               )}

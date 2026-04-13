@@ -36,14 +36,32 @@ When given a Bible chapter, provide these sections:
 
 Also note any significant textual variants (Dead Sea Scrolls vs. Masoretic Text, differences between major Greek manuscripts) when they affect meaning.
 
-## Theological Tensions
+## How Interpretation Has Evolved
+Trace how the understanding of this chapter has **concretely shifted** across the major eras of biblical interpretation. This is about the **history of reading** — show how the "plain meaning" of this text was anything but plain, and how each era read it through its own crises, politics, and philosophical commitments.
+
+For each era you cover, **name specific interpreters and their actual arguments**, not just schools of thought:
+- **Early Church (1st–5th c.)**: How did the Church Fathers read this? Cite specific figures: Origen's allegorical method vs. Antiochene literal readings (Chrysostom, Theodore of Mopsuestia). What did Augustine, Jerome, or Irenaeus actually *say* about this passage? Quote or closely paraphrase their positions. How did their reading serve the theological controversies of their time (Arianism, Pelagianism, Gnosticism)?
+- **Medieval period**: How did monastic lectio divina, scholastic theology (Aquinas's *Summa*), or mystical readings (Bernard of Clairvaux, Meister Eckhart, Hildegard of Bingen) reshape the meaning? What was the dominant reading in the Glossa Ordinaria?
+- **Reformation**: How did Luther, Calvin, or the Radical Reformers (Menno Simons, the Zürich Anabaptists) break with prior readings? What specific doctrinal stakes — justification, sacraments, ecclesiology, the priesthood of all believers — drove the reinterpretation? How did the Catholic Counter-Reformation (Council of Trent) respond?
+- **Enlightenment & historical-critical era**: How did Wellhausen, Gunkel, von Rad, or Noth change what scholars thought this passage was *doing*? When did the "original meaning" diverge sharply from the devotional meaning? What was the impact of source criticism, form criticism, and redaction criticism on this specific text?
+- **Modern & contemporary**: Liberation theology (Gutiérrez, Cone), feminist criticism (Phyllis Trible, Elisabeth Schüssler Fiorenza), postcolonial readings (R.S. Sugirtharajah, Musa Dube), Jewish readings (Rashi, Maimonides, and modern scholars like Jon Levenson, Avivah Zornberg) — how do these challenge the inherited consensus? What does each tradition see in this text that others miss?
+
+**Key instruction**: Don't just list eras — tell the *story* of how the reading changed. What triggered each shift? What was at stake? Show the reader that what feels like "the obvious meaning" is itself a product of a specific historical moment. Focus on the 2-3 most dramatic shifts for this particular chapter, and give enough detail that the reader can see *why* the interpretation changed, not just *that* it changed.
+
+## Theological Tensions & Competing Interpretations
 The hard stuff. Pick 2-3 genuine theological tensions or difficulties in the passage and lay them out with full scholarly rigor:
 - **Name the debate explicitly**: e.g., "This verse is central to the Calvinist-Arminian debate on election" or "Catholic and Protestant readings diverge sharply here."
-- **Cite at least two scholars or traditions on opposing sides** by name with their actual arguments: e.g., "N.T. Wright reads this as covenantal membership language, while John Piper insists on individual forensic justification — and the Greek *dikaiosynē* (δικαιοσύνη) genuinely supports both readings."
-- **Steelman the position you find least intuitive.** If the passage seems obviously to support one reading, make the strongest possible case for the other.
+- **Map the interpretive landscape**: For each major tension, present **at least three distinct positions** from different traditions or scholars — not just "two sides" but the actual range. Structure each tension as a mini-debate with clearly labeled positions:
+  - **Catholic** reading (CCC, patristic tradition, magisterial teaching — cite specific documents or encyclicals)
+  - **Protestant** readings (Reformed, Lutheran, Wesleyan, Anabaptist — these often diverge sharply from each other, so don't collapse them into one "Protestant view")
+  - **Orthodox** reading when distinct (theosis, apophatic theology, liturgical interpretation — cite specific theologians like Lossky, Schmemann, Zizioulas)
+  - **Jewish** reading when in the OT (Talmud, Rashi, Maimonides, Ibn Ezra, Nachmanides, and modern scholars like Jon Levenson, James Kugel, Avivah Zornberg)
+  - **Critical/academic** reading that may differ from all confessional positions
+- **Cite specific scholars by name with their actual arguments**: e.g., "N.T. Wright reads this as covenantal membership language, while John Piper insists on individual forensic justification — and the Greek *dikaiosynē* (δικαιοσύνη) genuinely supports both readings. Meanwhile, the Orthodox tradition (following Chrysostom) reads *dikaiosynē* as participatory righteousness — being made righteous, not declared righteous."
+- **Steelman the position you find least intuitive.** If the passage seems obviously to support one reading, make the strongest possible case for the other. The reader should finish this section unsure which position is "right" — that's the point.
 - Does it contradict another biblical passage? Show the specific texts side by side and how scholars and theologians have resolved (or refused to resolve) that tension.
 - Is there an ethical difficulty that modern readers struggle with? (violence, patriarchy, slavery, divine judgment) Don't apologize for the text or explain it away — present the difficulty and the range of serious responses from Origen to Brueggemann.
-- **Engage with Jewish readings** when in the OT. The Talmud, Rashi, Maimonides, and modern Jewish scholars (Jon Levenson, James Kugel) often see things Christian commentators miss entirely.
+- **End each tension with: "Where this leaves us:"** — a 1-2 sentence honest assessment of the state of the debate. Is there emerging consensus? Is it genuinely unresolvable? Has one reading displaced another in recent scholarship?
 
 ## The Emotional Core
 What is this passage really about at the human level? Strip away the theology and the history for a moment. What universal human experience is being described? Fear of abandonment? The intoxication of power? The ache of waiting? Sibling rivalry? The terror of obedience?
@@ -65,16 +83,17 @@ GUIDELINES:
 - Cite archaeological and textual evidence naturally: "The Tel Dan Stele (discovered 1993) confirmed..." or "Papyrus P75 (c. AD 200) reads..."
 - Don't preach, moralize, or apply. Trust the readers. Your job is depth, not devotion.
 - Write in clear, engaging prose. Dense but readable. Think Robert Alter meets N.T. Wright.
-- Aim for 1200-1800 words. This should feel like a substantial, satisfying study — not a summary.`;
+- Aim for 2200-3000 words. This should feel like a substantial, satisfying study — not a summary. The "How Interpretation Has Evolved" and "Theological Tensions" sections are the heart of the analysis — give them the space they need to do justice to the range of voices.`;
 
 export async function POST(req: Request) {
-  const { book, chapter, text, era, date, note } = await req.json();
+  try {
+    const { book, chapter, text, era, date, note } = await req.json();
 
-  const metadata = era
-    ? `\n\nBook metadata (from chronological reading plan):\n- Era: ${era}\n- Date: ${date}\n- Note: ${note}`
-    : "";
+    const metadata = era
+      ? `\n\nBook metadata (from chronological reading plan):\n- Era: ${era}\n- Date: ${date}\n- Note: ${note}`
+      : "";
 
-  const userMessage = `The reader is studying **${book} ${chapter}** (ESV, chronological reading order).${metadata}
+    const userMessage = `The reader is studying **${book} ${chapter}** (ESV, chronological reading order).${metadata}
 
 Here is the chapter text:
 ---
@@ -83,38 +102,49 @@ ${text}
 
 Provide your full scholarly analysis.`;
 
-  const stream = anthropic.messages.stream({
-    model: "claude-opus-4-20250514",
-    max_tokens: 4000,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: "user", content: userMessage }],
-  });
+    const stream = anthropic.messages.stream({
+      model: "claude-opus-4-20250514",
+      max_tokens: 8000,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: "user", content: userMessage }],
+    });
 
-  const readableStream = new ReadableStream({
-    async start(controller) {
-      try {
-        const response = await stream;
-        for await (const event of response) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
-            controller.enqueue(
-              new TextEncoder().encode(event.delta.text)
-            );
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        try {
+          const response = await stream;
+          for await (const event of response) {
+            if (
+              event.type === "content_block_delta" &&
+              event.delta.type === "text_delta"
+            ) {
+              controller.enqueue(
+                new TextEncoder().encode(event.delta.text)
+              );
+            }
           }
+          controller.close();
+        } catch (error) {
+          console.error("Stream error:", error);
+          controller.enqueue(
+            new TextEncoder().encode("\n\n*Study generation was interrupted. Please try again.*")
+          );
+          controller.close();
         }
-        controller.close();
-      } catch (error) {
-        controller.error(error);
-      }
-    },
-  });
+      },
+    });
 
-  return new Response(readableStream, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-cache",
-    },
-  });
+    return new Response(readableStream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+      },
+    });
+  } catch (error) {
+    console.error("Study API error:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to generate study content" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }
