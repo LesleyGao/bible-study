@@ -1549,7 +1549,7 @@ export default function Home() {
                     No bookmarked chapters yet.
                   </p>
                   <p className="text-warmgray text-sm">
-                    Tap the star on any chapter to save it here for easy access.
+                    Tap the bookmark icon on any chapter to save it here for easy access.
                   </p>
                 </div>
               ) : (
