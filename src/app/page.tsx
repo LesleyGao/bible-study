@@ -314,6 +314,7 @@ export default function Home() {
     setGratitudeSubmitted(false);
     setGratitude({});
     setChapterHighlights([]);
+    setIsBookmarked(false);
     setHighlightStart(null);
     setHighlightEnd(null);
     fetchBibleText(book, chapter);
@@ -473,12 +474,17 @@ export default function Home() {
   // ─── Bookmark toggle ───
   const toggleBookmark = async () => {
     if (!selected || !currentUser) return;
-    if (isBookmarked) {
-      await removeBookmark(currentUser, selected.book.name, selected.chapter);
-      setIsBookmarked(false);
-    } else {
-      await addBookmark(currentUser, selected.book.name, selected.chapter, "");
-      setIsBookmarked(true);
+    const prev = isBookmarked;
+    setIsBookmarked(!prev); // optimistic update
+    try {
+      if (prev) {
+        await removeBookmark(currentUser, selected.book.name, selected.chapter);
+      } else {
+        await addBookmark(currentUser, selected.book.name, selected.chapter, "");
+      }
+    } catch (err) {
+      console.error("toggleBookmark failed:", err);
+      setIsBookmarked(prev); // revert on error
     }
   };
 
@@ -616,7 +622,7 @@ export default function Home() {
             {isSharedMode && currentUser && (
               <button
                 onClick={toggleBookmark}
-                className={`text-2xl transition-colors ${
+                className={`transition-colors ${
                   isBookmarked
                     ? "text-gold-dark"
                     : "text-warmgray/40 hover:text-gold"
@@ -624,7 +630,18 @@ export default function Home() {
                 aria-label={isBookmarked ? "Remove bookmark" : "Bookmark this chapter"}
                 title={isBookmarked ? "Remove bookmark" : "Bookmark this chapter"}
               >
-                {isBookmarked ? "\u2605" : "\u2606"}
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill={isBookmarked ? "currentColor" : "none"}
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                </svg>
               </button>
             )}
           </div>
