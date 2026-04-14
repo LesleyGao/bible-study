@@ -337,6 +337,57 @@ export async function saveStudyContent(
   if (error) console.error("saveStudyContent error:", error.message);
 }
 
+// ─── Bookmarks ───
+
+export interface Bookmark {
+  id: string;
+  user_name: string;
+  book: string;
+  chapter: number;
+  note?: string;
+  created_at: string;
+}
+
+export async function loadBookmarks(userName?: string): Promise<Bookmark[]> {
+  if (!supabase) return [];
+  let query = supabase
+    .from("bible_bookmarks")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (userName) query = query.eq("user_name", userName);
+  const { data } = await query;
+  return (data as Bookmark[]) || [];
+}
+
+export async function addBookmark(
+  userName: string,
+  book: string,
+  chapter: number,
+  note: string
+): Promise<void> {
+  if (!supabase) return;
+  const { error } = await supabase.from("bible_bookmarks").upsert(
+    { user_name: userName, book, chapter, note },
+    { onConflict: "user_name,book,chapter" }
+  );
+  if (error) console.error("addBookmark error:", error.message);
+}
+
+export async function removeBookmark(
+  userName: string,
+  book: string,
+  chapter: number
+): Promise<void> {
+  if (!supabase) return;
+  const { error } = await supabase
+    .from("bible_bookmarks")
+    .delete()
+    .eq("user_name", userName)
+    .eq("book", book)
+    .eq("chapter", chapter);
+  if (error) console.error("removeBookmark error:", error.message);
+}
+
 // ─── Weekly Data (for recap) ───
 
 export async function getWeeklyData(since: string) {

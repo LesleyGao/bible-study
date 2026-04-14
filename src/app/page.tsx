@@ -31,9 +31,13 @@ import {
   getStudyContent,
   saveStudyContent,
   getWeeklyData,
+  loadBookmarks,
+  addBookmark,
+  removeBookmark,
   type Prayer,
   type Highlight,
   type GratitudeEntry,
+  type Bookmark,
 } from "@/lib/supabase";
 
 type View = "plan" | "chapter" | "together";
@@ -115,9 +119,13 @@ export default function Home() {
   // ─── Gratitude history ───
   const [allGratitude, setAllGratitude] = useState<GratitudeEntry[]>([]);
 
+  // ─── Bookmarks ───
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
   // ─── Together sub-section ───
   const [togetherTab, setTogetherTab] = useState<
-    "prayers" | "verses" | "gratitude" | "recap"
+    "prayers" | "verses" | "gratitude" | "bookmarks" | "recap"
   >("prayers");
 
   const booksByEra = getBooksByEra();
@@ -269,13 +277,14 @@ export default function Home() {
     [userKey]
   );
 
-  // ─── Load gratitude + highlights when chapter opens ───
+  // ─── Load gratitude + highlights + bookmark status when chapter opens ───
   const loadChapterExtras = useCallback(
     async (book: string, chapter: number) => {
       if (!isSharedMode) return;
-      const [grat, highlights] = await Promise.all([
+      const [grat, highlights, userBookmarks] = await Promise.all([
         getGratitude(book, chapter),
         loadChapterHighlights(book, chapter),
+        currentUser ? loadBookmarks(currentUser) : Promise.resolve([]),
       ]);
       setGratitude(grat);
       setGratitudeInput("");
@@ -285,8 +294,11 @@ export default function Home() {
       setHighlightStart(null);
       setHighlightEnd(null);
       setHighlightNote("");
+      setIsBookmarked(
+        userBookmarks.some((b) => b.book === book && b.chapter === chapter)
+      );
     },
-    [userKey]
+    [userKey, currentUser]
   );
 
   // ─── Select chapter ───
@@ -458,6 +470,18 @@ export default function Home() {
     setHighlightNote("");
   };
 
+  // ─── Bookmark toggle ───
+  const toggleBookmark = async () => {
+    if (!selected || !currentUser) return;
+    if (isBookmarked) {
+      await removeBookmark(currentUser, selected.book.name, selected.chapter);
+      setIsBookmarked(false);
+    } else {
+      await addBookmark(currentUser, selected.book.name, selected.chapter, "");
+      setIsBookmarked(true);
+    }
+  };
+
   // ─── Prayer actions ───
   const submitPrayer = async () => {
     if (!currentUser || !newPrayer.trim()) return;
@@ -523,6 +547,7 @@ export default function Home() {
       loadPrayers().then(setPrayers);
       loadAllHighlights().then(setAllHighlights);
       loadAllGratitude().then(setAllGratitude);
+      loadBookmarks().then(setBookmarks);
     }
   }, [view]);
 
@@ -584,9 +609,24 @@ export default function Home() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-ink">
-            {book.name} {chapter}
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-ink">
+              {book.name} {chapter}
+            </h1>
+            {isSharedMode && currentUser && (
+              <button
+                onClick={toggleBookmark}
+                className={`text-2xl transition-colors ${
+                  isBookmarked
+                    ? "text-gold-dark"
+                    : "text-warmgray/40 hover:text-gold"
+                }`}
+                title={isBookmarked ? "Remove bookmark" : "Bookmark this chapter"}
+              >
+                {isBookmarked ? "\u2605" : "\u2606"}
+              </button>
+            )}
+          </div>
           <p className="text-warmgray text-sm mt-1">
             {book.date} &middot; {book.era}
             {translation && (
@@ -1158,6 +1198,7 @@ export default function Home() {
               [
                 ["prayers", "Prayers"],
                 ["verses", "Our Verses"],
+                ["bookmarks", "Bookmarks"],
                 ["gratitude", "Gratitude"],
                 ["recap", "Recap"],
               ] as const
@@ -1476,6 +1517,89 @@ export default function Home() {
                         </div>
                       ))}
                   </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── Bookmarks ── */}
+          {togetherTab === "bookmarks" && (
+            <div>
+              {bookmarks.length === 0 ? (
+                <div className="text-center py-10">
+                  <p className="text-warmgray mb-2">
+                    No bookmarked chapters yet.
+                  </p>
+                  <p className="text-warmgray text-sm">
+                    Tap the star on any chapter to save it here for easy access.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-warmgray text-sm mb-2">
+                    {bookmarks.length} bookmarked chapter
+                    {bookmarks.length !== 1 ? "s" : ""}
+                  </p>
+                  {bookmarks.map((bm) => {
+                    const date = new Date(bm.created_at);
+                    const dateStr = date.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    });
+                    const matchingBook = READING_PLAN.find(
+                      (b) => b.name === bm.book
+                    );
+                    return (
+                      <div
+                        key={bm.id}
+                        className="bg-white rounded-xl p-4 shadow-sm border border-gold/20 cursor-pointer hover:border-gold/40 transition-colors"
+                        onClick={() => {
+                          if (matchingBook) {
+                            selectChapter(matchingBook, bm.chapter);
+                          }
+                        }}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="font-medium text-ink">
+                              {bm.book} {bm.chapter}
+                            </span>
+                            <span className="text-xs text-warmgray ml-2">
+                              {bm.user_name}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-warmgray">
+                              {dateStr}
+                            </span>
+                            {bm.user_name.toLowerCase() ===
+                              currentUser?.toLowerCase() && (
+                              <button
+                                onClick={async (e) => {
+                                  e.stopPropagation();
+                                  await removeBookmark(
+                                    bm.user_name,
+                                    bm.book,
+                                    bm.chapter
+                                  );
+                                  setBookmarks(await loadBookmarks());
+                                }}
+                                className="text-warmgray hover:text-red-400 text-sm"
+                                title="Remove bookmark"
+                              >
+                                &times;
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        {bm.note && (
+                          <p className="text-ink-light text-sm mt-1 italic">
+                            {bm.note}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

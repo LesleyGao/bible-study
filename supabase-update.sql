@@ -44,3 +44,17 @@ alter table bible_highlights enable row level security;
 create policy "open_access" on bible_prayers for all using (true) with check (true);
 create policy "open_access" on bible_gratitude for all using (true) with check (true);
 create policy "open_access" on bible_highlights for all using (true) with check (true);
+
+-- Chapter bookmarks
+create table bible_bookmarks (
+  id uuid primary key default gen_random_uuid(),
+  user_name text not null,
+  book text not null,
+  chapter integer not null,
+  note text default '',
+  created_at timestamptz default now(),
+  unique(user_name, book, chapter)
+);
+
+alter table bible_bookmarks enable row level security;
+create policy "open_access" on bible_bookmarks for all using (true) with check (true);
