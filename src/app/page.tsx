@@ -621,6 +621,7 @@ export default function Home() {
                     ? "text-gold-dark"
                     : "text-warmgray/40 hover:text-gold"
                 }`}
+                aria-label={isBookmarked ? "Remove bookmark" : "Bookmark this chapter"}
                 title={isBookmarked ? "Remove bookmark" : "Bookmark this chapter"}
               >
                 {isBookmarked ? "\u2605" : "\u2606"}
