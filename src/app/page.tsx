@@ -122,6 +122,7 @@ export default function Home() {
   // ─── Bookmarks ───
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarkError, setBookmarkError] = useState("");
 
   // ─── Together sub-section ───
   const [togetherTab, setTogetherTab] = useState<
@@ -474,17 +475,15 @@ export default function Home() {
   // ─── Bookmark toggle ───
   const toggleBookmark = async () => {
     if (!selected || !currentUser) return;
+    setBookmarkError("");
     const prev = isBookmarked;
     setIsBookmarked(!prev); // optimistic update
-    try {
-      if (prev) {
-        await removeBookmark(currentUser, selected.book.name, selected.chapter);
-      } else {
-        await addBookmark(currentUser, selected.book.name, selected.chapter, "");
-      }
-    } catch (err) {
-      console.error("toggleBookmark failed:", err);
+    const err = prev
+      ? await removeBookmark(currentUser, selected.book.name, selected.chapter)
+      : await addBookmark(currentUser, selected.book.name, selected.chapter, "");
+    if (err) {
       setIsBookmarked(prev); // revert on error
+      setBookmarkError(err);
     }
   };
 
@@ -653,6 +652,9 @@ export default function Home() {
               </span>
             )}
           </p>
+          {bookmarkError && (
+            <p className="text-red-500 text-xs mt-1">{bookmarkError}</p>
+          )}
           {book.note && (
             <p className="text-ink-light text-sm mt-2 italic">{book.note}</p>
           )}

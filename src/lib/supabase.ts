@@ -364,28 +364,36 @@ export async function addBookmark(
   book: string,
   chapter: number,
   note: string
-): Promise<void> {
-  if (!supabase) return;
+): Promise<string | null> {
+  if (!supabase) return "No database connection";
   const { error } = await supabase.from("bible_bookmarks").upsert(
     { user_name: userName, book, chapter, note },
     { onConflict: "user_name,book,chapter" }
   );
-  if (error) console.error("addBookmark error:", error.message);
+  if (error) {
+    console.error("addBookmark error:", error.message);
+    return error.message;
+  }
+  return null;
 }
 
 export async function removeBookmark(
   userName: string,
   book: string,
   chapter: number
-): Promise<void> {
-  if (!supabase) return;
+): Promise<string | null> {
+  if (!supabase) return "No database connection";
   const { error } = await supabase
     .from("bible_bookmarks")
     .delete()
     .eq("user_name", userName)
     .eq("book", book)
     .eq("chapter", chapter);
-  if (error) console.error("removeBookmark error:", error.message);
+  if (error) {
+    console.error("removeBookmark error:", error.message);
+    return error.message;
+  }
+  return null;
 }
 
 // ─── Weekly Data (for recap) ───
