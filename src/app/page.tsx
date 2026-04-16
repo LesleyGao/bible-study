@@ -349,10 +349,21 @@ export default function Home() {
     }
 
     const fullText = verses.map((v) => `${v.verse} ${v.text}`).join("\n");
+    const controller = new AbortController();
+
+    // When the user switches apps, the browser may kill the stream.
+    // Abort gracefully so we keep any partial content instead of showing an error.
+    const onVisibilityChange = () => {
+      if (document.hidden) controller.abort();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    let content = "";
     try {
       const res = await fetch("/api/study", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           book: selected.book.name,
           chapter: selected.chapter,
@@ -365,11 +376,11 @@ export default function Home() {
       if (!res.ok || !res.body) {
         setStudyContent("Something went wrong — the study API returned an error. Please try again in a moment.");
         setIsLoadingStudy(false);
+        document.removeEventListener("visibilitychange", onVisibilityChange);
         return;
       }
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let content = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -380,9 +391,18 @@ export default function Home() {
       if (content && content.length > 100) {
         saveStudyContent(selected.book.name, selected.chapter, content);
       }
-    } catch {
-      setStudyContent("Something went wrong. Please try again.");
+    } catch (err) {
+      // If we already streamed partial content, keep it — don't replace with error
+      if (content.length > 100) {
+        saveStudyContent(selected.book.name, selected.chapter, content);
+      } else if (err instanceof DOMException && err.name === "AbortError") {
+        // User switched apps mid-stream — show nothing scary, they can retry
+        if (!content) setStudyContent("");
+      } else {
+        setStudyContent("Something went wrong. Please try again.");
+      }
     }
+    document.removeEventListener("visibilitychange", onVisibilityChange);
     setIsLoadingStudy(false);
   };
 
