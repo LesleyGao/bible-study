@@ -331,6 +331,24 @@ export default function Home() {
     }
   }, [selected, verses, currentUser, loadReflectionPrompt, loadChapterExtras]);
 
+  // When user returns to the app mid-study, restore cached content if the
+  // current study content is empty or an error message.
+  useEffect(() => {
+    if (!selected) return;
+    const onVisibilityChange = async () => {
+      if (document.hidden) return;
+      if (isLoadingStudy) return;
+      const looksBroken =
+        !studyContent || studyContent.startsWith("Something went wrong");
+      if (!looksBroken) return;
+      const cached = await getStudyContent(selected.book.name, selected.chapter);
+      if (cached) setStudyContent(cached);
+      else if (studyContent.startsWith("Something went wrong")) setStudyContent("");
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, [selected, studyContent, isLoadingStudy]);
+
   // ─── Go Deeper ───
   const goDeeper = async () => {
     if (!selected) return;
@@ -392,12 +410,18 @@ export default function Home() {
         saveStudyContent(selected.book.name, selected.chapter, content);
       }
     } catch (err) {
-      // If we already streamed partial content, keep it — don't replace with error
-      if (content.length > 100) {
+      const isAbort = err instanceof DOMException && err.name === "AbortError";
+      if (isAbort) {
+        // User switched apps mid-stream — never show an error.
+        // Keep partial content if substantial, otherwise clear so they can retry.
+        if (content.length > 100) {
+          saveStudyContent(selected.book.name, selected.chapter, content);
+        } else {
+          setStudyContent("");
+        }
+      } else if (content.length > 100) {
+        // Real error but we got most of it — keep partial
         saveStudyContent(selected.book.name, selected.chapter, content);
-      } else if (err instanceof DOMException && err.name === "AbortError") {
-        // User switched apps mid-stream — show nothing scary, they can retry
-        if (!content) setStudyContent("");
       } else {
         setStudyContent("Something went wrong. Please try again.");
       }
