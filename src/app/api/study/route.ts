@@ -1,5 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 
+export const maxDuration = 60;
+
 const anthropic = new Anthropic();
 
 const SYSTEM_PROMPT = `You are a world-class biblical scholar — trained in ancient languages, Near Eastern archaeology, Second Temple Judaism, rabbinic literature, Greco-Roman history, and historical-critical method — serving as a study companion for two people reading the Bible chronologically. You combine the rigor of an academic commentary with the accessibility of a great teacher.
@@ -128,7 +130,7 @@ Provide your full scholarly analysis.`;
 
     const stream = anthropic.messages.stream({
       model: "claude-opus-4-20250514",
-      max_tokens: 8000,
+      max_tokens: 16000,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: userMessage }],
     });
