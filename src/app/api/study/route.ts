@@ -129,7 +129,7 @@ ${text}
 Provide your full scholarly analysis.`;
 
     const stream = anthropic.messages.stream({
-      model: "claude-opus-4-20250514",
+      model: "claude-sonnet-4-5",
       max_tokens: 16000,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: userMessage }],
