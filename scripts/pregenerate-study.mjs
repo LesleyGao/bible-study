@@ -187,6 +187,11 @@ async function main() {
       date: "c. 2100–1700 BC",
       note: "Creation through the four patriarchs. Archaeology places Abraham c. 2100–1900 BC (Middle Bronze I).",
     },
+    Job: {
+      era: "The Patriarchal Era",
+      date: "c. 2000–1800 BC",
+      note: "Placed in the patriarchal era due to its archaic language, pre-Mosaic theology, and lack of references to Israel's history.",
+    },
   };
   const meta = META[book] || { era: "", date: "", note: "" };
 
