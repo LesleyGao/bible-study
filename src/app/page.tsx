@@ -124,6 +124,9 @@ export default function Home() {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [bookmarkError, setBookmarkError] = useState("");
 
+  // ─── Scroll-to-top ───
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   // ─── Together sub-section ───
   const [togetherTab, setTogetherTab] = useState<
     "prayers" | "verses" | "gratitude" | "bookmarks" | "recap"
@@ -301,6 +304,40 @@ export default function Home() {
     },
     [userKey, currentUser]
   );
+
+  // ─── Prev/next chapter (crosses book boundaries) ───
+  const getPrevChapter = (
+    book: Book,
+    chapter: number
+  ): { book: Book; chapter: number } | null => {
+    if (chapter > 1) return { book, chapter: chapter - 1 };
+    const idx = READING_PLAN.findIndex((b) => b.name === book.name);
+    if (idx <= 0) return null;
+    const prev = READING_PLAN[idx - 1];
+    return { book: prev, chapter: prev.chapters };
+  };
+
+  const getNextChapter = (
+    book: Book,
+    chapter: number
+  ): { book: Book; chapter: number } | null => {
+    if (chapter < book.chapters) return { book, chapter: chapter + 1 };
+    const idx = READING_PLAN.findIndex((b) => b.name === book.name);
+    if (idx === -1 || idx >= READING_PLAN.length - 1) return null;
+    return { book: READING_PLAN[idx + 1], chapter: 1 };
+  };
+
+  // ─── Scroll-to-top visibility ───
+  useEffect(() => {
+    if (view !== "chapter") {
+      setShowScrollTop(false);
+      return;
+    }
+    const onScroll = () => setShowScrollTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [view]);
 
   // ─── Select chapter ───
   const selectChapter = (book: Book, chapter: number) => {
@@ -840,6 +877,47 @@ export default function Home() {
           )}
         </div>
 
+        {/* Prev/Next chapter (right after Bible text) */}
+        {(() => {
+          const prev = getPrevChapter(book, chapter);
+          const next = getNextChapter(book, chapter);
+          if (!prev && !next) return null;
+          return (
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              {prev ? (
+                <button
+                  onClick={() => selectChapter(prev.book, prev.chapter)}
+                  className="flex flex-col items-start py-3 px-4 bg-white hover:bg-parchment/50 border border-parchment-dark hover:border-gold rounded-lg transition-colors text-left"
+                >
+                  <span className="text-xs text-warmgray uppercase tracking-wide">
+                    &larr; Previous Chapter
+                  </span>
+                  <span className="text-ink font-medium mt-0.5 text-sm">
+                    {prev.book.name} {prev.chapter}
+                  </span>
+                </button>
+              ) : (
+                <div />
+              )}
+              {next ? (
+                <button
+                  onClick={() => selectChapter(next.book, next.chapter)}
+                  className="flex flex-col items-end py-3 px-4 bg-white hover:bg-parchment/50 border border-parchment-dark hover:border-gold rounded-lg transition-colors text-right"
+                >
+                  <span className="text-xs text-warmgray uppercase tracking-wide">
+                    Next Chapter &rarr;
+                  </span>
+                  <span className="text-ink font-medium mt-0.5 text-sm">
+                    {next.book.name} {next.chapter}
+                  </span>
+                </button>
+              ) : (
+                <div />
+              )}
+            </div>
+          );
+        })()}
+
         {/* Action buttons */}
         <div className="flex gap-3 mb-6">
           <button
@@ -1026,29 +1104,30 @@ export default function Home() {
           </div>
         )}
 
-        {/* Chapter navigation */}
-        <div className="flex justify-between mt-8 pt-6 border-t border-parchment-dark">
-          {chapter > 1 ? (
-            <button
-              onClick={() => selectChapter(book, chapter - 1)}
-              className="text-gold-dark hover:text-gold font-medium"
+        {/* Sticky scroll-to-top */}
+        {showScrollTop && (
+          <button
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gold hover:bg-gold-dark text-white rounded-full shadow-lg flex items-center justify-center transition-opacity"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              &larr; Chapter {chapter - 1}
-            </button>
-          ) : (
-            <div />
-          )}
-          {chapter < book.chapters ? (
-            <button
-              onClick={() => selectChapter(book, chapter + 1)}
-              className="text-gold-dark hover:text-gold font-medium"
-            >
-              Chapter {chapter + 1} &rarr;
-            </button>
-          ) : (
-            <div />
-          )}
-        </div>
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </button>
+        )}
       </div>
     );
   }
