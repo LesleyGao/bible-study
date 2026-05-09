@@ -937,13 +937,47 @@ export default function Home() {
           </button>
           <button
             onClick={() => toggleRead(book.name, chapter)}
-            className={`py-3 px-6 rounded-lg font-medium transition-colors border-2 ${
+            aria-pressed={read}
+            title={read ? "Click to unmark as read" : "Mark this chapter as read"}
+            className={`py-3 px-5 rounded-lg font-semibold transition-colors border-2 inline-flex items-center gap-2 ${
               read
-                ? "border-gold bg-gold/10 text-gold-dark"
-                : "border-parchment-dark hover:border-gold text-warmgray hover:text-gold-dark"
+                ? "border-gold-dark bg-gold-dark text-white hover:bg-ink hover:border-ink"
+                : "border-parchment-dark bg-white text-ink hover:border-gold-dark hover:text-gold-dark"
             }`}
           >
-            {read ? "Read" : "Mark Read"}
+            {read ? (
+              <>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                Read
+              </>
+            ) : (
+              <>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+                Mark as Read
+              </>
+            )}
           </button>
         </div>
 
