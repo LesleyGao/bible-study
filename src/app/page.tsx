@@ -693,8 +693,8 @@ export default function Home() {
           <span>&larr;</span> Back to Plan
         </button>
 
-        {/* Header */}
-        <div className="mb-6">
+        {/* Header (sticky) */}
+        <div className="sticky top-0 z-30 -mx-4 px-4 pt-3 pb-4 mb-6 bg-parchment/90 backdrop-blur border-b border-parchment-dark">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-ink">
               {book.name} {chapter}
@@ -725,10 +725,10 @@ export default function Home() {
               </button>
             )}
           </div>
-          <p className="text-warmgray text-sm mt-1">
+          <p className="text-warmgray text-xs mt-1">
             {book.date} &middot; {book.era}
             {translation && (
-              <span className="ml-2 text-xs bg-parchment-dark px-1.5 py-0.5 rounded">
+              <span className="ml-2 bg-parchment-dark px-1.5 py-0.5 rounded">
                 {translation}
               </span>
             )}
@@ -737,7 +737,9 @@ export default function Home() {
             <p className="text-red-500 text-xs mt-1">{bookmarkError}</p>
           )}
           {book.note && (
-            <p className="text-ink-light text-sm mt-2 italic">{book.note}</p>
+            <p className="text-ink-light text-xs mt-1.5 italic leading-snug">
+              {book.note}
+            </p>
           )}
         </div>
 
