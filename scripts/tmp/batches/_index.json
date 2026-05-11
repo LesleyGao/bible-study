@@ -1,0 +1,282 @@
+[
+  {
+    "batch": "01",
+    "seg": "OT",
+    "n": 16,
+    "books": "Genesis",
+    "file": "scripts/tmp/batches/batch_01_OT.txt"
+  },
+  {
+    "batch": "02",
+    "seg": "OT",
+    "n": 16,
+    "books": "Genesis",
+    "file": "scripts/tmp/batches/batch_02_OT.txt"
+  },
+  {
+    "batch": "03",
+    "seg": "OT",
+    "n": 16,
+    "books": "Exodus, Leviticus",
+    "file": "scripts/tmp/batches/batch_03_OT.txt"
+  },
+  {
+    "batch": "04",
+    "seg": "OT",
+    "n": 16,
+    "books": "Leviticus, Numbers, Deuteronomy",
+    "file": "scripts/tmp/batches/batch_04_OT.txt"
+  },
+  {
+    "batch": "05",
+    "seg": "OT",
+    "n": 16,
+    "books": "Deuteronomy, Joshua",
+    "file": "scripts/tmp/batches/batch_05_OT.txt"
+  },
+  {
+    "batch": "06",
+    "seg": "OT",
+    "n": 16,
+    "books": "Joshua, Judges",
+    "file": "scripts/tmp/batches/batch_06_OT.txt"
+  },
+  {
+    "batch": "07",
+    "seg": "OT",
+    "n": 16,
+    "books": "Judges, Ruth",
+    "file": "scripts/tmp/batches/batch_07_OT.txt"
+  },
+  {
+    "batch": "08",
+    "seg": "OT",
+    "n": 16,
+    "books": "Ruth, 1 Samuel",
+    "file": "scripts/tmp/batches/batch_08_OT.txt"
+  },
+  {
+    "batch": "09",
+    "seg": "OT",
+    "n": 16,
+    "books": "1 Samuel, 2 Samuel",
+    "file": "scripts/tmp/batches/batch_09_OT.txt"
+  },
+  {
+    "batch": "10",
+    "seg": "OT",
+    "n": 16,
+    "books": "2 Samuel",
+    "file": "scripts/tmp/batches/batch_10_OT.txt"
+  },
+  {
+    "batch": "11",
+    "seg": "OT",
+    "n": 16,
+    "books": "2 Samuel, 1 Kings",
+    "file": "scripts/tmp/batches/batch_11_OT.txt"
+  },
+  {
+    "batch": "12",
+    "seg": "OT",
+    "n": 16,
+    "books": "1 Kings, 2 Kings",
+    "file": "scripts/tmp/batches/batch_12_OT.txt"
+  },
+  {
+    "batch": "13",
+    "seg": "OT",
+    "n": 16,
+    "books": "2 Kings, 1 Chronicles, 2 Chronicles",
+    "file": "scripts/tmp/batches/batch_13_OT.txt"
+  },
+  {
+    "batch": "14",
+    "seg": "OT",
+    "n": 16,
+    "books": "Ezra, Nehemiah, Esther, Job",
+    "file": "scripts/tmp/batches/batch_14_OT.txt"
+  },
+  {
+    "batch": "15",
+    "seg": "OT",
+    "n": 16,
+    "books": "Job, Psalms",
+    "file": "scripts/tmp/batches/batch_15_OT.txt"
+  },
+  {
+    "batch": "16",
+    "seg": "OT",
+    "n": 16,
+    "books": "Psalms",
+    "file": "scripts/tmp/batches/batch_16_OT.txt"
+  },
+  {
+    "batch": "17",
+    "seg": "OT",
+    "n": 16,
+    "books": "Psalms, Proverbs",
+    "file": "scripts/tmp/batches/batch_17_OT.txt"
+  },
+  {
+    "batch": "18",
+    "seg": "OT",
+    "n": 16,
+    "books": "Proverbs, Ecclesiastes, Song of Solomon, Isaiah",
+    "file": "scripts/tmp/batches/batch_18_OT.txt"
+  },
+  {
+    "batch": "19",
+    "seg": "OT",
+    "n": 16,
+    "books": "Isaiah",
+    "file": "scripts/tmp/batches/batch_19_OT.txt"
+  },
+  {
+    "batch": "20",
+    "seg": "OT",
+    "n": 16,
+    "books": "Jeremiah",
+    "file": "scripts/tmp/batches/batch_20_OT.txt"
+  },
+  {
+    "batch": "21",
+    "seg": "OT",
+    "n": 16,
+    "books": "Lamentations, Ezekiel",
+    "file": "scripts/tmp/batches/batch_21_OT.txt"
+  },
+  {
+    "batch": "22",
+    "seg": "OT",
+    "n": 16,
+    "books": "Ezekiel, Hosea, Joel, Amos, Jonah",
+    "file": "scripts/tmp/batches/batch_22_OT.txt"
+  },
+  {
+    "batch": "23",
+    "seg": "OT",
+    "n": 3,
+    "books": "Jonah",
+    "file": "scripts/tmp/batches/batch_23_OT.txt"
+  },
+  {
+    "batch": "24",
+    "seg": "NT",
+    "n": 16,
+    "books": "Matthew",
+    "file": "scripts/tmp/batches/batch_24_NT.txt"
+  },
+  {
+    "batch": "25",
+    "seg": "NT",
+    "n": 16,
+    "books": "Matthew, Mark",
+    "file": "scripts/tmp/batches/batch_25_NT.txt"
+  },
+  {
+    "batch": "26",
+    "seg": "NT",
+    "n": 16,
+    "books": "Mark, Luke",
+    "file": "scripts/tmp/batches/batch_26_NT.txt"
+  },
+  {
+    "batch": "27",
+    "seg": "NT",
+    "n": 16,
+    "books": "Luke",
+    "file": "scripts/tmp/batches/batch_27_NT.txt"
+  },
+  {
+    "batch": "28",
+    "seg": "NT",
+    "n": 16,
+    "books": "Luke, John",
+    "file": "scripts/tmp/batches/batch_28_NT.txt"
+  },
+  {
+    "batch": "29",
+    "seg": "NT",
+    "n": 16,
+    "books": "John, Acts",
+    "file": "scripts/tmp/batches/batch_29_NT.txt"
+  },
+  {
+    "batch": "30",
+    "seg": "NT",
+    "n": 16,
+    "books": "Acts",
+    "file": "scripts/tmp/batches/batch_30_NT.txt"
+  },
+  {
+    "batch": "31",
+    "seg": "NT",
+    "n": 16,
+    "books": "Acts, Romans",
+    "file": "scripts/tmp/batches/batch_31_NT.txt"
+  },
+  {
+    "batch": "32",
+    "seg": "NT",
+    "n": 16,
+    "books": "Romans, 1 Corinthians",
+    "file": "scripts/tmp/batches/batch_32_NT.txt"
+  },
+  {
+    "batch": "33",
+    "seg": "NT",
+    "n": 16,
+    "books": "1 Corinthians, 2 Corinthians",
+    "file": "scripts/tmp/batches/batch_33_NT.txt"
+  },
+  {
+    "batch": "34",
+    "seg": "NT",
+    "n": 16,
+    "books": "2 Corinthians, Galatians, Ephesians, Philippians",
+    "file": "scripts/tmp/batches/batch_34_NT.txt"
+  },
+  {
+    "batch": "35",
+    "seg": "NT",
+    "n": 16,
+    "books": "Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy",
+    "file": "scripts/tmp/batches/batch_35_NT.txt"
+  },
+  {
+    "batch": "36",
+    "seg": "NT",
+    "n": 16,
+    "books": "1 Timothy, 2 Timothy, Titus, Philemon, Hebrews",
+    "file": "scripts/tmp/batches/batch_36_NT.txt"
+  },
+  {
+    "batch": "37",
+    "seg": "NT",
+    "n": 16,
+    "books": "Hebrews, James, 1 Peter",
+    "file": "scripts/tmp/batches/batch_37_NT.txt"
+  },
+  {
+    "batch": "38",
+    "seg": "NT",
+    "n": 16,
+    "books": "1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude, Revelation",
+    "file": "scripts/tmp/batches/batch_38_NT.txt"
+  },
+  {
+    "batch": "39",
+    "seg": "NT",
+    "n": 16,
+    "books": "Revelation",
+    "file": "scripts/tmp/batches/batch_39_NT.txt"
+  },
+  {
+    "batch": "40",
+    "seg": "NT",
+    "n": 3,
+    "books": "Revelation",
+    "file": "scripts/tmp/batches/batch_40_NT.txt"
+  }
+]

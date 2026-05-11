@@ -1,0 +1,16 @@
+Acts	24	nt
+Acts	25	nt
+Acts	26	nt
+Acts	27	nt,nt-no-wright
+Acts	28	nt
+Romans	1	nt
+Romans	2	nt
+Romans	3	nt
+Romans	4	nt
+Romans	5	nt
+Romans	6	nt
+Romans	7	nt
+Romans	8	nt
+Romans	9	nt
+Romans	10	nt
+Romans	11	nt

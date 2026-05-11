@@ -1,0 +1,16 @@
+Lamentations	2	idcrit
+Lamentations	4	idcrit
+Lamentations	5	idcrit
+Ezekiel	5	idcrit
+Ezekiel	7	idcrit
+Ezekiel	8	idcrit
+Ezekiel	13	idcrit
+Ezekiel	16	idcrit
+Ezekiel	18	idcrit
+Ezekiel	19	idcrit
+Ezekiel	22	idcrit
+Ezekiel	23	idcrit
+Ezekiel	27	idcrit
+Ezekiel	30	idcrit
+Ezekiel	31	idcrit
+Ezekiel	36	idcrit

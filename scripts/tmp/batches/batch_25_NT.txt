@@ -1,0 +1,16 @@
+Matthew	17	nt
+Matthew	18	nt,nt-no-wright
+Matthew	19	nt
+Matthew	20	idcrit,nt
+Matthew	21	idcrit,nt
+Matthew	22	idcrit,nt
+Matthew	23	idcrit,nt
+Matthew	24	nt
+Matthew	25	idcrit,nt
+Matthew	26	idcrit,nt,nt-no-wright
+Matthew	27	idcrit,nt
+Matthew	28	idcrit,nt
+Mark	1	nt,nt-no-wright
+Mark	2	idcrit,nt
+Mark	3	idcrit,nt,nt-no-wright
+Mark	4	idcrit,nt

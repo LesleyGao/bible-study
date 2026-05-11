@@ -1,0 +1,16 @@
+Philippians	3	idcrit,nt
+Philippians	4	idcrit,nt
+Colossians	1	idcrit,nt
+Colossians	2	idcrit,nt
+Colossians	3	idcrit,nt
+Colossians	4	idcrit,nt,nt-no-wright
+1 Thessalonians	1	nt
+1 Thessalonians	2	nt
+1 Thessalonians	3	nt,nt-no-wright
+1 Thessalonians	4	nt
+1 Thessalonians	5	nt
+2 Thessalonians	1	nt
+2 Thessalonians	2	nt
+2 Thessalonians	3	idcrit,nt,nt-no-wright
+1 Timothy	1	idcrit,nt
+1 Timothy	3	nt,nt-no-wright

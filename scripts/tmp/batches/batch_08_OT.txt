@@ -1,0 +1,16 @@
+Ruth	2	idcrit
+Ruth	3	idcrit
+Ruth	4	idcrit
+1 Samuel	1	idcrit
+1 Samuel	2	idcrit
+1 Samuel	3	idcrit
+1 Samuel	4	idcrit
+1 Samuel	5	idcrit
+1 Samuel	6	idcrit
+1 Samuel	7	idcrit
+1 Samuel	8	idcrit
+1 Samuel	9	idcrit
+1 Samuel	10	idcrit
+1 Samuel	11	idcrit
+1 Samuel	12	idcrit
+1 Samuel	13	idcrit

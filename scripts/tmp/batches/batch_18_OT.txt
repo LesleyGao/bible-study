@@ -1,0 +1,16 @@
+Proverbs	27	idcrit
+Proverbs	31	idcrit
+Ecclesiastes	4	idcrit
+Ecclesiastes	5	idcrit
+Ecclesiastes	7	idcrit
+Ecclesiastes	8	idcrit
+Ecclesiastes	10	idcrit
+Song of Solomon	1	idcrit
+Song of Solomon	2	idcrit
+Song of Solomon	3	idcrit
+Song of Solomon	4	idcrit
+Song of Solomon	5	idcrit
+Song of Solomon	6	idcrit
+Song of Solomon	7	idcrit
+Song of Solomon	8	idcrit
+Isaiah	1	idcrit

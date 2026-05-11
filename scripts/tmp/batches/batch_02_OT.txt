@@ -1,0 +1,16 @@
+Genesis	24	idcrit
+Genesis	25	idcrit
+Genesis	26	idcrit
+Genesis	27	idcrit
+Genesis	29	idcrit
+Genesis	32	idcrit
+Genesis	33	idcrit
+Genesis	34	idcrit
+Genesis	37	idcrit
+Genesis	38	idcrit
+Genesis	39	idcrit
+Genesis	40	idcrit
+Genesis	41	idcrit
+Genesis	43	idcrit
+Genesis	46	idcrit
+Genesis	49	idcrit

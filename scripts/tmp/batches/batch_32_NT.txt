@@ -1,0 +1,16 @@
+Romans	12	idcrit,nt
+Romans	13	nt
+Romans	14	nt
+Romans	15	nt
+Romans	16	idcrit,nt
+1 Corinthians	1	idcrit,nt
+1 Corinthians	2	idcrit,nt,nt-no-wright
+1 Corinthians	3	idcrit,nt,nt-no-wright
+1 Corinthians	4	idcrit,nt,nt-no-wright
+1 Corinthians	5	nt,nt-no-wright
+1 Corinthians	6	nt
+1 Corinthians	7	idcrit,nt,nt-no-wright
+1 Corinthians	8	nt,nt-no-wright
+1 Corinthians	9	nt,nt-no-wright
+1 Corinthians	10	nt
+1 Corinthians	11	nt,nt-no-wright

@@ -1,0 +1,16 @@
+Leviticus	25	idcrit
+Leviticus	27	idcrit
+Numbers	3	idcrit
+Numbers	4	idcrit
+Numbers	5	idcrit
+Numbers	12	idcrit
+Numbers	13	idcrit
+Numbers	26	idcrit
+Numbers	27	idcrit
+Numbers	30	idcrit
+Numbers	31	idcrit
+Numbers	33	idcrit
+Numbers	36	idcrit
+Deuteronomy	1	idcrit
+Deuteronomy	5	idcrit
+Deuteronomy	7	idcrit

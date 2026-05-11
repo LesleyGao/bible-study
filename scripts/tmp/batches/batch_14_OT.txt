@@ -1,0 +1,16 @@
+Ezra	9	idcrit
+Ezra	10	idcrit
+Nehemiah	3	idcrit
+Nehemiah	5	idcrit
+Nehemiah	6	idcrit
+Nehemiah	10	idcrit
+Esther	1	idcrit
+Esther	2	idcrit
+Esther	5	idcrit
+Esther	6	idcrit
+Esther	7	idcrit
+Esther	8	idcrit
+Esther	9	idcrit
+Esther	10	idcrit
+Job	1	idcrit
+Job	2	idcrit

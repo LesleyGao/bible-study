@@ -1,0 +1,16 @@
+Joshua	11	idcrit
+Joshua	12	idcrit
+Joshua	13	idcrit
+Joshua	14	idcrit
+Joshua	15	idcrit
+Joshua	16	idcrit
+Joshua	17	idcrit
+Joshua	18	idcrit
+Joshua	19	idcrit
+Joshua	22	idcrit
+Joshua	23	idcrit
+Joshua	24	idcrit
+Judges	1	idcrit
+Judges	2	idcrit
+Judges	3	idcrit
+Judges	4	idcrit

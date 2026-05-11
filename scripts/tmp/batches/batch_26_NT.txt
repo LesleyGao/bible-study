@@ -1,0 +1,16 @@
+Mark	5	idcrit,nt,nt-no-wright
+Mark	6	idcrit,nt
+Mark	7	idcrit,nt
+Mark	8	idcrit,nt
+Mark	9	nt
+Mark	10	nt
+Mark	11	nt
+Mark	12	idcrit,nt
+Mark	13	nt
+Mark	14	idcrit,nt
+Mark	15	nt
+Mark	16	nt
+Luke	1	idcrit,nt,nt-no-wright
+Luke	2	idcrit,nt
+Luke	3	idcrit,nt,nt-no-wright
+Luke	4	idcrit,nt,nt-no-wright

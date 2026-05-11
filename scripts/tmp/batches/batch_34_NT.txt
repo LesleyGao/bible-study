@@ -1,0 +1,16 @@
+2 Corinthians	12	nt,nt-no-wright
+2 Corinthians	13	nt,nt-no-wright
+Galatians	1	nt
+Galatians	2	nt
+Galatians	3	idcrit,nt
+Galatians	4	nt
+Galatians	5	nt
+Galatians	6	nt
+Ephesians	1	nt
+Ephesians	2	nt
+Ephesians	3	nt
+Ephesians	4	nt,nt-no-wright
+Ephesians	5	idcrit,nt,nt-no-wright
+Ephesians	6	nt
+Philippians	1	idcrit,nt
+Philippians	2	nt

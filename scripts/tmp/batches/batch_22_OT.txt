@@ -1,0 +1,16 @@
+Ezekiel	44	idcrit
+Ezekiel	45	idcrit
+Ezekiel	46	idcrit
+Ezekiel	47	idcrit
+Hosea	1	idcrit
+Hosea	2	idcrit
+Hosea	3	idcrit
+Hosea	4	idcrit
+Hosea	9	idcrit
+Hosea	13	idcrit
+Joel	1	idcrit
+Amos	2	idcrit
+Amos	4	idcrit
+Amos	5	idcrit
+Amos	6	idcrit
+Jonah	1	idcrit

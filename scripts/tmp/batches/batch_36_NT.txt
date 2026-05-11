@@ -1,0 +1,16 @@
+1 Timothy	4	idcrit,nt,nt-no-wright
+1 Timothy	5	idcrit,nt,nt-no-wright
+1 Timothy	6	idcrit,nt,nt-no-wright
+2 Timothy	1	idcrit,nt,nt-no-wright
+2 Timothy	2	nt
+2 Timothy	3	nt
+2 Timothy	4	nt,nt-no-wright
+Titus	1	nt,nt-no-wright
+Titus	2	nt,nt-no-wright
+Titus	3	nt,nt-no-wright
+Philemon	1	idcrit,nt
+Hebrews	1	nt
+Hebrews	2	nt
+Hebrews	3	nt,nt-no-wright
+Hebrews	4	nt,nt-no-wright
+Hebrews	5	nt,nt-no-wright

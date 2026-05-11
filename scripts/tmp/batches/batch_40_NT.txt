@@ -1,0 +1,3 @@
+Revelation	20	idcrit,nt
+Revelation	21	idcrit,nt
+Revelation	22	idcrit,nt

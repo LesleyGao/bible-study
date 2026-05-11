@@ -1,0 +1,16 @@
+1 Peter	4	idcrit,nt,nt-no-wright
+1 Peter	5	idcrit,nt,nt-no-wright
+2 Peter	1	nt,nt-no-wright
+2 Peter	2	nt,nt-no-wright
+2 Peter	3	nt,nt-no-wright
+1 John	1	nt,nt-no-wright
+1 John	2	nt,nt-no-wright
+1 John	3	nt,nt-no-wright
+1 John	4	nt,nt-no-wright
+1 John	5	nt,nt-no-wright
+2 John	1	idcrit,nt,nt-no-wright
+3 John	1	nt,nt-no-wright
+Jude	1	nt,nt-no-wright
+Revelation	1	idcrit,nt,nt-no-wright
+Revelation	2	idcrit,nt,nt-no-wright
+Revelation	3	idcrit,nt,nt-no-wright

@@ -1,0 +1,16 @@
+Isaiah	3	idcrit
+Isaiah	5	idcrit
+Isaiah	10	idcrit
+Isaiah	11	idcrit
+Isaiah	13	idcrit
+Isaiah	14	idcrit
+Isaiah	32	idcrit
+Isaiah	42	idcrit
+Isaiah	46	idcrit
+Isaiah	47	idcrit
+Isaiah	49	idcrit
+Isaiah	57	idcrit
+Isaiah	58	idcrit
+Isaiah	61	idcrit
+Isaiah	62	idcrit
+Isaiah	66	idcrit

@@ -1,0 +1,16 @@
+Judges	5	idcrit
+Judges	6	idcrit
+Judges	7	idcrit
+Judges	8	idcrit
+Judges	9	idcrit
+Judges	10	idcrit
+Judges	11	idcrit
+Judges	12	idcrit
+Judges	13	idcrit
+Judges	14	idcrit
+Judges	15	idcrit
+Judges	16	idcrit
+Judges	17	idcrit
+Judges	20	idcrit
+Judges	21	idcrit
+Ruth	1	idcrit

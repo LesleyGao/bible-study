@@ -1,0 +1,16 @@
+John	13	nt,nt-no-wright
+John	14	nt,nt-no-wright
+John	15	nt
+John	16	idcrit,nt,nt-no-wright
+John	17	nt,nt-no-wright
+John	18	nt
+John	19	nt,nt-no-wright
+John	20	idcrit,nt
+John	21	nt,nt-no-wright
+Acts	1	idcrit,nt,nt-no-wright
+Acts	2	idcrit,nt,nt-no-wright
+Acts	3	idcrit,nt,nt-no-wright
+Acts	4	idcrit,nt,nt-no-wright
+Acts	5	idcrit,nt
+Acts	6	idcrit,nt,nt-no-wright
+Acts	7	idcrit,nt,nt-no-wright

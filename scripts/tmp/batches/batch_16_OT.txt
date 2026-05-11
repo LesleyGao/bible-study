@@ -1,0 +1,16 @@
+Psalms	45	idcrit
+Psalms	48	idcrit
+Psalms	58	idcrit
+Psalms	59	idcrit
+Psalms	60	idcrit
+Psalms	64	idcrit
+Psalms	67	idcrit
+Psalms	72	idcrit
+Psalms	78	idcrit
+Psalms	79	idcrit
+Psalms	87	idcrit
+Psalms	88	idcrit
+Psalms	89	idcrit
+Psalms	94	idcrit
+Psalms	100	idcrit
+Psalms	103	idcrit

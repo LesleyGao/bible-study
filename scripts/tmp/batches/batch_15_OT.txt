@@ -1,0 +1,16 @@
+Job	4	idcrit
+Job	6	idcrit
+Job	8	idcrit
+Job	14	idcrit
+Job	16	idcrit
+Job	22	idcrit
+Job	24	idcrit
+Job	25	idcrit
+Job	29	idcrit
+Job	30	idcrit
+Job	40	idcrit
+Job	42	idcrit
+Psalms	2	idcrit
+Psalms	5	idcrit
+Psalms	9	idcrit
+Psalms	10	idcrit

@@ -1,0 +1,16 @@
+Matthew	1	idcrit,nt
+Matthew	2	idcrit,nt
+Matthew	3	idcrit,nt
+Matthew	4	idcrit,nt
+Matthew	5	nt
+Matthew	6	idcrit,nt
+Matthew	7	nt,nt-no-wright
+Matthew	8	idcrit,nt
+Matthew	9	idcrit,nt
+Matthew	10	idcrit,nt
+Matthew	11	idcrit,nt,nt-no-wright
+Matthew	12	nt
+Matthew	13	nt
+Matthew	14	idcrit,nt
+Matthew	15	idcrit,nt
+Matthew	16	idcrit,nt

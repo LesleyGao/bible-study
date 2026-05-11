@@ -1,0 +1,16 @@
+Deuteronomy	15	idcrit
+Deuteronomy	20	idcrit
+Deuteronomy	21	idcrit
+Deuteronomy	22	idcrit
+Deuteronomy	24	idcrit
+Deuteronomy	32	idcrit
+Joshua	1	idcrit
+Joshua	2	idcrit
+Joshua	3	idcrit
+Joshua	4	idcrit
+Joshua	5	idcrit
+Joshua	6	idcrit
+Joshua	7	idcrit
+Joshua	8	idcrit
+Joshua	9	idcrit
+Joshua	10	idcrit

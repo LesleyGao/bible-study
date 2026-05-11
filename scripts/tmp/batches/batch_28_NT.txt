@@ -1,0 +1,16 @@
+Luke	21	nt
+Luke	22	idcrit,nt
+Luke	23	nt
+Luke	24	idcrit,nt
+John	1	idcrit,nt,nt-no-wright
+John	2	idcrit,nt
+John	3	idcrit,nt,nt-no-wright
+John	4	idcrit,nt,nt-no-wright
+John	5	nt,nt-no-wright
+John	6	nt,nt-no-wright
+John	7	idcrit,nt,nt-no-wright
+John	8	idcrit,nt,nt-no-wright
+John	9	nt,nt-no-wright
+John	10	nt,nt-no-wright
+John	11	idcrit,nt
+John	12	idcrit,nt

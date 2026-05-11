@@ -1,0 +1,16 @@
+Luke	5	idcrit,nt,nt-no-wright
+Luke	6	idcrit,nt,nt-no-wright
+Luke	7	idcrit,nt,nt-no-wright
+Luke	8	idcrit,nt,nt-no-wright
+Luke	9	idcrit,nt
+Luke	10	idcrit,nt
+Luke	11	idcrit,nt
+Luke	12	idcrit,nt
+Luke	13	idcrit,nt
+Luke	14	idcrit,nt
+Luke	15	idcrit,nt
+Luke	16	idcrit,nt
+Luke	17	nt
+Luke	18	idcrit,nt
+Luke	19	nt
+Luke	20	idcrit,nt

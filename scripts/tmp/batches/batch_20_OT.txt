@@ -1,0 +1,16 @@
+Jeremiah	2	idcrit
+Jeremiah	3	idcrit
+Jeremiah	5	idcrit
+Jeremiah	13	idcrit
+Jeremiah	22	idcrit
+Jeremiah	24	idcrit
+Jeremiah	25	idcrit
+Jeremiah	27	idcrit
+Jeremiah	29	idcrit
+Jeremiah	32	idcrit
+Jeremiah	34	idcrit
+Jeremiah	35	idcrit
+Jeremiah	38	idcrit
+Jeremiah	40	idcrit
+Jeremiah	50	idcrit
+Jeremiah	51	idcrit

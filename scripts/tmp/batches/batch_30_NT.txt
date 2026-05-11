@@ -1,0 +1,16 @@
+Acts	8	idcrit,nt,nt-no-wright
+Acts	9	idcrit,nt
+Acts	10	idcrit,nt,nt-no-wright
+Acts	11	idcrit,nt,nt-no-wright
+Acts	12	nt,nt-no-wright
+Acts	13	nt
+Acts	14	nt
+Acts	15	nt
+Acts	16	idcrit,nt
+Acts	17	nt
+Acts	18	idcrit,nt
+Acts	19	idcrit,nt,nt-no-wright
+Acts	20	nt,nt-no-wright
+Acts	21	idcrit,nt,nt-no-wright
+Acts	22	nt
+Acts	23	nt

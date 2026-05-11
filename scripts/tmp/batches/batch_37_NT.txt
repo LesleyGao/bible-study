@@ -1,0 +1,16 @@
+Hebrews	6	nt,nt-no-wright
+Hebrews	7	nt,nt-no-wright
+Hebrews	8	nt
+Hebrews	9	nt,nt-no-wright
+Hebrews	10	nt
+Hebrews	11	nt,nt-no-wright
+Hebrews	12	idcrit,nt
+Hebrews	13	idcrit,nt,nt-no-wright
+James	1	nt
+James	2	nt
+James	3	nt,nt-no-wright
+James	4	nt,nt-no-wright
+James	5	idcrit,nt,nt-no-wright
+1 Peter	1	idcrit,nt
+1 Peter	2	idcrit,nt
+1 Peter	3	nt,nt-no-wright

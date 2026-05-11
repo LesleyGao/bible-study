@@ -1,0 +1,16 @@
+Exodus	1	idcrit
+Exodus	2	idcrit
+Exodus	5	idcrit
+Exodus	15	idcrit
+Exodus	17	idcrit
+Exodus	21	idcrit
+Exodus	38	idcrit
+Leviticus	1	idcrit
+Leviticus	10	idcrit
+Leviticus	11	idcrit
+Leviticus	12	idcrit
+Leviticus	15	idcrit
+Leviticus	19	idcrit
+Leviticus	21	idcrit
+Leviticus	22	idcrit
+Leviticus	24	idcrit

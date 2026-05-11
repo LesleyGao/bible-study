@@ -1,0 +1,16 @@
+Psalms	109	idcrit
+Psalms	122	idcrit
+Psalms	123	idcrit
+Psalms	127	idcrit
+Psalms	128	idcrit
+Psalms	129	idcrit
+Psalms	131	idcrit
+Psalms	133	idcrit
+Psalms	146	idcrit
+Psalms	149	idcrit
+Proverbs	1	idcrit
+Proverbs	5	idcrit
+Proverbs	6	idcrit
+Proverbs	7	idcrit
+Proverbs	8	idcrit
+Proverbs	9	idcrit

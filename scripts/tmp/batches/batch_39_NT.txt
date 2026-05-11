@@ -1,0 +1,16 @@
+Revelation	4	idcrit,nt,nt-no-wright
+Revelation	5	idcrit,nt,nt-no-wright
+Revelation	6	idcrit,nt,nt-no-wright
+Revelation	7	idcrit,nt,nt-no-wright
+Revelation	8	idcrit,nt,nt-no-wright
+Revelation	9	idcrit,nt,nt-no-wright
+Revelation	10	idcrit,nt,nt-no-wright
+Revelation	11	idcrit,nt,nt-no-wright
+Revelation	12	idcrit,nt,nt-no-wright
+Revelation	13	idcrit,nt,nt-no-wright
+Revelation	14	idcrit,nt,nt-no-wright
+Revelation	15	idcrit,nt,nt-no-wright
+Revelation	16	idcrit,nt,nt-no-wright
+Revelation	17	idcrit,nt
+Revelation	18	idcrit,nt
+Revelation	19	idcrit,nt,nt-no-wright
