@@ -116,10 +116,10 @@ Three theological moves are operating:
 
 ### The ethical difficulty: vv. 18–21 — the land grant and its victims
 
-The ten nations listed will be dispossessed. Modern readers, especially post-colonial and Palestinian Christian scholars (Naim Ateek, Munther Isaac), press hard: does this text authorize ethnic cleansing? Serious responses range:
+The ten nations listed will be dispossessed. Modern readers press hard: does this text authorize ethnic cleansing? Serious responses range:
 - **Traditional**: v. 16 provides the ethical framework — the Amorites are judged for specific moral evil, not ethnicity. Cf. Lev 18:24–28.
 - **Critical**: The list is a retrojected justification written after Israel held (or lost) the land.
-- **Christocentric (Wright, Goldingay)**: The promise is fulfilled in Christ's global kingdom, not perpetual territorial claim.
+- **Christocentric (Wright, Goldingay)**: The promise is fulfilled in Christ's global kingdom, not a perpetual territorial claim; Wright in particular reads the land promise as expanded in Paul into the inheritance of the whole renewed creation (Rom 4:13), so that the geography is taken up rather than weaponized.
 - **Jewish (Levenson)**: The land promise cannot be severed from the Jewish people without committing a different theological violence — a critique sharpened by the Holocaust.
 
 **Where this leaves us.** Genesis 15 is the text that refuses easy ownership. Jews read it as the foundation of irrevocable election. Christians read it as the template of faith fulfilled in Christ. Both readings have integrity; neither fully contains the text. What is not negotiable is this: God makes himself *vulnerable* in this chapter, walks the death-path alone, and stakes his own name on a future he has promised.

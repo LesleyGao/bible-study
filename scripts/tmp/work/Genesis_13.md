@@ -124,9 +124,8 @@ The altar at Hebron is not incidental. Mamre becomes Abram's home base (14:13, 1
 
 **The ethical difficulty.** Verse 7 names the Canaanites and Perizzites as *already there*. Verse 15 promises their land to Abram's offspring *forever*. This is the text that colonial and settler movements have cited, and it is the text that has been cited against Palestinians in the 20th and 21st centuries. Any serious reader must sit with this. Responses across the spectrum:
 
-- Some (Brueggemann, later work) argue the Bible itself relativizes its own land claims (Leviticus 25:23 — "the land is mine; you are sojourners").
+- Some (Brueggemann, later work) argue the Bible itself relativizes its own land claims (Leviticus 25:23 — "the land is mine; you are sojourners"), so that the gift is always held under conditions of justice and never as absolute possession.
 - Some (Levenson) insist the promise is irreducibly particular and that universalizing readings are their own form of violence against Jewish identity.
-- Some (Palestinian Christian theologians like Naim Ateek) read the promise through the lens of justice and argue that no divine promise legitimates dispossession.
 - Some (critical scholars) argue the whole construct is a literary artifact projected backward to justify what ancient Israel had already done.
 
 **Where this leaves us:** The chapter gives us a God who works through yielding and whose promises expand in the space left by human restraint — and, in the same breath, a promise of land over people already living there. The text refuses to resolve that tension, and neither should we pretend to.

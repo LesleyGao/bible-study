@@ -56,7 +56,7 @@ The first major theological tension is the anthropocentric reading vs. the ecolo
 
 - The traditional anthropocentric reading (much of pre-modern Christian commentary, including Aquinas's reading of dominion as *imperium*) treats human supremacy over creation as the psalm's point.
 - The stewardship reading (Calvin to a degree; modern evangelical environmentalists like Cal DeWitt; the work of Richard Bauckham, *The Bible and Ecology*) reads dominion as covenant-stewardship — humanity rules under God, on God's behalf, and answers for that rule.
-- The creational-ecology reading (William P. Brown, *The Seven Pillars of Creation*; Catherine Keller; Pope Francis, *Laudato Si'*, 2015) goes further: the psalm's *frame* is God's cosmic glory (vv. 1-2, 9), so human dominion is bounded inside a prior divine ownership, and the catalog of creatures (vv. 7-8) names creation as kin rather than property.
+- The creational-ecology reading (William P. Brown, *The Seven Pillars of Creation*; Pope Francis, *Laudato Si'*, 2015) goes further: the psalm's *frame* is God's cosmic glory (vv. 1-2, 9), so human dominion is bounded inside a prior divine ownership, and the catalog of creatures (vv. 7-8) names creation as kin rather than property.
 - The Jewish stewardship tradition (Levenson; Jonathan Sacks, *The Great Partnership*) reads Genesis 1 and Psalm 8 together as commissioning humanity into God's ongoing creative work — *tikkun olam* (repairing the world) before that phrase took its modern form.
 - The deep-ecology critique (J. Baird Callicott, others outside the religious tradition) holds that the psalm's hierarchy is unrecoverable and that any biblical environmental ethic has to push past it. This is the position the religious traditions are responding to.
 
