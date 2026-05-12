@@ -1,0 +1,10 @@
+1 Peter	3	wright-add
+1 Thessalonians	3	wright-add
+1 Timothy	3	wright-add
+2 Thessalonians	3	wright-add
+Colossians	4	wright-add
+Ephesians	4	wright-add
+Ephesians	5	wright-add
+James	3	wright-add
+James	4	wright-add
+James	5	wright-add

@@ -1,0 +1,14 @@
+1 Corinthians	2	wright-add
+1 Corinthians	3	wright-add
+1 Corinthians	4	wright-add
+1 Corinthians	5	wright-add
+1 Corinthians	7	wright-add
+1 Corinthians	8	wright-add
+1 Corinthians	9	wright-add
+2 Corinthians	12	wright-add
+2 Corinthians	13	wright-add
+Hebrews	6	wright-add
+Hebrews	7	wright-add
+Hebrews	9	wright-add
+Hebrews	11	wright-add
+Hebrews	13	wright-add (also: remove residual "liberation theology" reference)
