@@ -234,8 +234,9 @@ export default function Home() {
       setTranslation("");
       try {
         const name = book.apiName || book.name;
+        const query = book.chapters === 1 ? name : `${name} ${chapter}`;
         const res = await fetch(
-          `/api/bible-text?q=${encodeURIComponent(`${name} ${chapter}`)}`
+          `/api/bible-text?q=${encodeURIComponent(query)}`
         );
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
@@ -681,7 +682,7 @@ export default function Home() {
       v <= highlightEnd;
 
     return (
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl lg:max-w-4xl mx-auto px-4 py-6">
         {/* Back */}
         <button
           onClick={() => {
@@ -998,9 +999,10 @@ export default function Home() {
           </div>
         )}
 
+        <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
         {/* ─── Reflect Together ─── */}
         {isSharedMode && reflectionPrompt && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gold/20 mb-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gold/20 mb-6 lg:mb-0">
             <h3 className="font-semibold text-gold-dark text-sm uppercase tracking-wide mb-3">
               Reflect Together
             </h3>
@@ -1069,7 +1071,7 @@ export default function Home() {
         )}
 
         {isSharedMode && isLoadingPrompt && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gold/20 mb-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gold/20 mb-6 lg:mb-0">
             <p className="text-warmgray loading-pulse text-center py-4">
               Loading reflections...
             </p>
@@ -1078,7 +1080,7 @@ export default function Home() {
 
         {/* ─── Gratitude ─── */}
         {isSharedMode && currentUser && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-rose-100 mb-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-rose-100 mb-6 lg:mb-0">
             <h3 className="font-semibold text-rose-400 text-sm uppercase tracking-wide mb-3">
               Gratitude
             </h3>
@@ -1139,6 +1141,7 @@ export default function Home() {
             )}
           </div>
         )}
+        </div>
 
         {/* Sticky scroll-to-top */}
         {showScrollTop && (
