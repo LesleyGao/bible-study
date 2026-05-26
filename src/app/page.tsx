@@ -682,7 +682,7 @@ export default function Home() {
       v <= highlightEnd;
 
     return (
-      <div className="max-w-2xl lg:max-w-4xl mx-auto px-4 py-6">
+      <div className="max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 lg:px-8 py-6">
         {/* Back */}
         <button
           onClick={() => {
@@ -755,7 +755,7 @@ export default function Home() {
               {textError}
             </div>
           ) : (
-            <div className="bible-text">
+            <div className="bible-text max-w-3xl mx-auto">
               {verses.map((v) => {
                 const isHighlighted = highlightedVerses.has(v.verse);
                 const isSelected = isInSelection(v.verse);
@@ -993,7 +993,7 @@ export default function Home() {
         {/* Study content */}
         {studyContent && (
           <div className="bg-white rounded-xl p-6 shadow-sm border border-parchment-dark mb-6">
-            <div className="study-content prose prose-warm max-w-none">
+            <div className="study-content prose prose-warm max-w-3xl mx-auto">
               <ReactMarkdown skipHtml>{studyContent}</ReactMarkdown>
             </div>
           </div>
